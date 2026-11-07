@@ -47,11 +47,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: personalData.name, url: personalData.github }],
   creator: personalData.name,
-  metadataBase: new URL("https://manthandubey.dev"),
+  metadataBase: new URL("https://builtbymanthan.netlify.app"),
   openGraph: {
     title: `${personalData.name} — ${personalData.role}`,
     description: personalData.heroBio,
-    url: "https://manthandubey.dev",
+    url: "https://builtbymanthan.netlify.app",
     siteName: `${personalData.name} Portfolio`,
     locale: "en_US",
     type: "website",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${personalData.name} — ${personalData.role}`,
     description: personalData.heroBio,
-    creator: "@manthandubey",
+    creator: "@dubeymnthn",
   },
   icons: {
     icon: "/icon.svg",
@@ -94,7 +94,7 @@ export default function RootLayout({
     name: personalData.name,
     jobTitle: personalData.title,
     description: personalData.heroBio,
-    url: "https://manthandubey.dev",
+    url: "https://builtbymanthan.netlify.app",
     sameAs: [personalData.github, personalData.linkedin],
     knowsAbout: [
       "Software Engineering",

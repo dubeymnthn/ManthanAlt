@@ -1,9 +1,15 @@
+export type ExperimentStatus =
+  | "Completed experiment"
+  | "Working prototype"
+  | "Active research"
+  | "Technical exploration";
+
 export interface ExperimentItem {
   id: string;
   code: string;
   title: string;
   category: string;
-  status: "Active" | "Benchmarked" | "Shipped Tool" | "Research";
+  status: ExperimentStatus;
   summary: string;
   tech: string[];
   findings: string;
@@ -14,14 +20,14 @@ export const experimentsData: ExperimentItem[] = [
   {
     id: "exp-01",
     code: "EXP-01",
-    title: "Local LLM Inference & Quantization Benchmarks",
+    title: "Local LLM Inference & Quantization Trade-offs",
     category: "AI Runtime",
-    status: "Benchmarked",
+    status: "Completed experiment",
     summary:
-      "Benchmarking local inference speed and context degradation across 4-bit, 8-bit, and 16-bit GGUF quants on consumer hardware.",
+      "Evaluating local model execution and context retention across 4-bit, 8-bit, and 16-bit GGUF quantizations on local developer hardware.",
     tech: ["Ollama", "Llama.cpp", "Qwen 2.5", "Mistral", "Python"],
     findings:
-      "4-bit quantized Qwen-2.5-Coder maintains >94% syntactic accuracy for TypeScript generation while running at 32 tok/s locally.",
+      "4-bit quantized instruction models reliably preserve syntactic validity for TypeScript generation while fitting comfortably within consumer RAM budgets.",
     terminalSnippet: "$ ollama run qwen2.5-coder:7b-instruct-q4_K_M --verbose",
   },
   {
@@ -29,12 +35,12 @@ export const experimentsData: ExperimentItem[] = [
     code: "EXP-02",
     title: "Model Context Protocol (MCP) Custom Server Adapter",
     category: "Agent Protocols",
-    status: "Shipped Tool",
+    status: "Working prototype",
     summary:
       "Engineered lightweight JSON-RPC MCP servers exposing file-system watchers, headless scrapers, and database inspectors to LLMs.",
     tech: ["MCP SDK", "Node.js", "TypeScript", "JSON-RPC"],
     findings:
-      "Decoupled tool schemas drastically reduce hallucination rates in multi-step file manipulation tasks compared to inline prompting.",
+      "Decoupled JSON-RPC tool contracts significantly improve tool-call determinism and schema validation during multi-turn file transformations.",
     terminalSnippet: "$ agy mcp inspect --server local-token-bridge",
   },
   {
@@ -42,12 +48,12 @@ export const experimentsData: ExperimentItem[] = [
     code: "EXP-03",
     title: "Autonomous Multi-Actor Audio Script Synthesizer",
     category: "Generative Audio",
-    status: "Active",
+    status: "Active research",
     summary:
       "Experimental multi-agent pipeline directing distinct character voices, emotional modulation, and ambient sound effects from raw text stories.",
     tech: ["Gemini Multimodal", "Web Audio API", "SSML", "Ffmpeg"],
     findings:
-      "Dynamic SSML injection with sentence-boundary emotional weighting reduces monotonic synthesized cadence in dialogue.",
+      "Structured SSML injection with sentence-boundary emotional pacing prevents monotonic cadence in multi-character dialogue generation.",
     terminalSnippet: "[STORYFORGE_DAEMON] Segmenting Act 2 Scene 3 (Hindi Dialect)",
   },
   {
@@ -55,12 +61,12 @@ export const experimentsData: ExperimentItem[] = [
     code: "EXP-04",
     title: "Resilient Headless Scraping & PDF Coordinate Heuristics",
     category: "Automation",
-    status: "Shipped Tool",
+    status: "Working prototype",
     summary:
       "Dynamic bounding-box algorithm calculating table column boundaries in unformatted financial statements using statistical whitespace clustering.",
     tech: ["Python", "PDFPlumber", "Pandas", "Regex"],
     findings:
-      "Replaced brittle fixed-coordinate grids with adaptive X-histogram density clustering, eliminating parsing failures on multi-bank layouts.",
+      "Replacing brittle fixed-coordinate grids with adaptive X-coordinate density clustering enables automated parsing of multi-page bank statements.",
     terminalSnippet: ">>> parse_statement_tables(stream, heuristic='x_density')",
   },
   {
@@ -68,12 +74,12 @@ export const experimentsData: ExperimentItem[] = [
     code: "EXP-05",
     title: "Real-Time Procedural 3D Mesh Deformation via WebGL Shaders",
     category: "Creative Dev",
-    status: "Research",
+    status: "Technical exploration",
     summary:
-      "Custom GLSL vertex and fragment shaders simulating mathematical flow fields and kinetic module systems at locked 60 FPS.",
+      "Custom GLSL vertex and fragment shaders simulating mathematical flow fields and kinetic module systems at smooth display refresh rates.",
     tech: ["Three.js", "GLSL", "React Three Fiber", "Web Audio"],
     findings:
-      "Offloading vertex displacement to GPU vertex shaders reduced JS thread CPU utilization from 28% to < 3% on high-density meshes.",
+      "Offloading trigonometric vertex displacement directly to GPU vertex shaders eliminates main-thread CPU bottlenecks during geometry animation.",
     terminalSnippet: "gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);",
   },
   {
@@ -81,12 +87,12 @@ export const experimentsData: ExperimentItem[] = [
     code: "EXP-06",
     title: "Low-Overhead Event Loop Telemetry for Microservices",
     category: "Distributed Systems",
-    status: "Active",
+    status: "Active research",
     summary:
-      "Lightweight Node.js diagnostics sidecar tracking V8 garbage collection spikes and event-loop lag with zero synthetic overhead.",
+      "Lightweight Node.js diagnostics sidecar tracking V8 garbage collection intervals and event-loop lag with minimal runtime footprint.",
     tech: ["Node.js perf_hooks", "Prometheus", "Grafana", "Docker"],
     findings:
-      "Capturing histogram percentiles (p99 event-loop delay) detects thread starvation 4x faster than standard CPU threshold alarms.",
+      "Sampling event-loop delay percentiles via native perf_hooks surfaces I/O thread blocking earlier than aggregate process CPU alarms.",
     terminalSnippet: "perf_hooks.monitorEventLoopDelay({ resolution: 20 })",
   },
 ];

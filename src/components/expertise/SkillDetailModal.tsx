@@ -1,6 +1,6 @@
 "use client";
 
-import { X, ArrowRight, Layers, Tag } from "lucide-react";
+import { X, ArrowRight, Layers, Tag, FolderGit2, ExternalLink } from "lucide-react";
 import styles from "./SkillsExplorer.module.scss";
 import { SkillNode, skillsData } from "@/data/skills";
 import { soundManager } from "@/lib/sound";
@@ -46,13 +46,33 @@ export function SkillDetailModal({
         <h4 className={styles.skillTitle}>{skill.name}</h4>
         <p className={styles.skillDesc}>{skill.description}</p>
 
-        {/* Architectural Context */}
-        <div className={styles.contextBox}>
-          <span className={styles.contextLabel}>SYSTEM IMPLEMENTATION CONTEXT:</span>
-          <p className={styles.contextText}>
-            Used across production services for enterprise systems, data pipelines, and responsive client architectures.
-          </p>
-        </div>
+        {/* Applied In Completed Projects */}
+        {skill.usedInProjects && skill.usedInProjects.length > 0 && (
+          <div className={styles.projectRefGroup}>
+            <span className={styles.projectRefTitle}>
+              <FolderGit2 size={13} />
+              <span>APPLIED IN COMPLETED PROJECTS ({skill.usedInProjects.length}):</span>
+            </span>
+            <div className={styles.projectRefPills}>
+              {skill.usedInProjects.map((p) => (
+                <a
+                  key={p.id}
+                  href={`#projects`}
+                  className={styles.projectRefBtn}
+                  onClick={() => {
+                    soundManager.playClick();
+                    onClose();
+                  }}
+                  onMouseEnter={() => soundManager.playHover()}
+                >
+                  <FolderGit2 size={11} className={styles.projectRefIcon} />
+                  <span>{p.title}</span>
+                  <ExternalLink size={10} className={styles.projectRefArrow} />
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Connected / Related Technologies */}
         {relatedNodes.length > 0 && (

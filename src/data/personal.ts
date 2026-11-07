@@ -102,9 +102,9 @@ export const personalData: PersonalData = {
   ],
   contactHeadline: "Have an interesting problem? Let's talk.",
   contactSubtext: "Whether you have a product to build, an architectural challenge to tackle, or an opportunity to discuss, my inbox is open.",
-  email: "manthandubey18@gmail.com",
-  github: "https://github.com/manthandubey",
-  linkedin: "https://linkedin.com/in/manthandubey",
+  email: "manthan1181999@gmail.com",
+  github: "https://github.com/dubeymnthn",
+  linkedin: "https://www.linkedin.com/in/dubeymnthn",
   resumeUrl: "/resume-manthan-dubey.pdf",
   systemSpecs: [
     { label: "CORE FOCUS", value: "Full-Stack & Systems" },

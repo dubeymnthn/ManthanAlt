@@ -9,30 +9,30 @@ export interface SocialLink {
 export const socialLinks: SocialLink[] = [
   {
     label: "GitHub",
-    url: "https://github.com/manthandubey",
+    url: "https://github.com/dubeymnthn",
     type: "github",
-    username: "@manthandubey",
+    username: "@dubeymnthn",
     icon: "Github",
   },
   {
     label: "LinkedIn",
-    url: "https://linkedin.com/in/manthandubey",
+    url: "https://www.linkedin.com/in/dubeymnthn",
     type: "linkedin",
-    username: "manthandubey",
+    username: "in/dubeymnthn",
     icon: "Linkedin",
   },
   {
     label: "Email",
-    url: "mailto:manthandubey18@gmail.com",
+    url: "mailto:manthan1181999@gmail.com",
     type: "email",
-    username: "manthandubey18@gmail.com",
+    username: "manthan1181999@gmail.com",
     icon: "Mail",
   },
   {
     label: "Resume",
-    url: "#resume",
+    url: "/resume-manthan-dubey.pdf",
     type: "resume",
-    username: "PDF / Resume",
+    username: "PDF / Verified Resume",
     icon: "FileText",
   },
 ];

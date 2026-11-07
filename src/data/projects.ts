@@ -97,7 +97,7 @@ export const projectsData: Project[] = [
     subtitle: "Conversations that start with a single press.",
     tagline: "Real-time communication, engineered from the ground up.",
     shortDescription:
-      "A high-concurrency push-to-talk voice messaging platform engineered with Flutter for the mobile client and Fastify on Node.js. Delivers instant audio transmission, real-time presence indicators, signed audio storage pipelines, and resilient background notifications.",
+      "A push-to-talk voice messaging platform engineered with Flutter for the mobile client and Fastify on Node.js. Delivers instant audio transmission, real-time presence indicators, signed audio storage pipelines, and resilient background notifications.",
     fullDescription:
       "Wally Talky is a push-to-talk voice messaging application designed around instant voice communication, real-time presence, and reliable audio delivery. The application combines mobile development, real-time communication infrastructure, backend engineering, audio handling, and notification services into one unified communication platform.",
     category: "Mobile Engineering / Real-Time Communication",
@@ -130,7 +130,7 @@ export const projectsData: Project[] = [
       "Implemented trust-and-safety functionality including participant blocking, report queues, and moderation.",
     ],
     keyFeatures: [
-      "Sub-100ms push-to-talk voice capture with native ring buffer memory management.",
+      "Low-latency push-to-talk voice capture with asynchronous stream buffering.",
       "Real-time room presence and participant heartbeat monitoring.",
       "Pre-authenticated signed streaming URLs preventing unauthorized audio bucket reads.",
       "Background wake-lock notification handlers for incoming audio transmissions on mobile.",
@@ -140,7 +140,7 @@ export const projectsData: Project[] = [
       description:
         "Event-driven hybrid architecture connecting a reactive Flutter client to a Fastify/TypeScript gateway. Control state and audio chunks flow through WebSocket channels, backed by Redis pub/sub for room broadcast, while relational metadata and access policies persist in PostgreSQL via Prisma.",
       flow: [
-        "Flutter Mobile Client captures audio into native ring buffer upon PTT press",
+        "Flutter Mobile Client captures audio into an asynchronous stream buffer upon PTT press",
         "Fastify API Gateway validates session authentication and channel memberships",
         "Socket.IO Presence Engine broadcasts speaker status to active peers via Redis Pub/Sub",
         "Audio Storage Pipeline writes media to storage and signs time-limited access tokens",
@@ -171,7 +171,7 @@ export const projectsData: Project[] = [
       {
         title: "Microphone Audio Latency & Buffer Jitter",
         description: "Capturing raw audio on Android devices without audio thread locking or perceptual delay before socket streaming.",
-        solution: "Engineered a native audio buffer pipeline with pre-allocated memory rings in Dart/Flutter, streaming OPUS-encoded slices over binary WebSocket frames directly to Fastify.",
+        solution: "Engineered a asynchronous audio stream pipeline in Dart/Flutter, streaming OPUS-encoded slices over binary WebSocket frames directly to Fastify.",
       },
       {
         title: "Connection Resiliency Across Mobile Network Handoffs",
@@ -185,7 +185,7 @@ export const projectsData: Project[] = [
       },
     ],
     metrics: [
-      { label: "TRANSMISSION LATENCY", value: "< 120ms" },
+      { label: "COMMUNICATION", value: "Real-Time WSS" },
       { label: "PROTOCOL", value: "Binary WSS" },
       { label: "ORCHESTRATION", value: "Redis Pub/Sub" },
     ],
@@ -322,7 +322,7 @@ export const projectsData: Project[] = [
       "Fastify",
       "TypeScript",
       "PostgreSQL",
-      "Prisma ORM (28+ tables)",
+      "Prisma ORM (35 Models)",
       "Redis",
       "BullMQ",
       "React 19",
@@ -335,7 +335,7 @@ export const projectsData: Project[] = [
     problemStatement:
       "Wholesale warehouse owners handle high-velocity stock across physical godowns but struggle with retailer communication: retailers constantly call for stock updates and pricing, yet owners cannot publicly display trade prices or exact inventory without risking competitor undercut.",
     engineeringContribution: [
-      "Architected the Fastify TypeScript modular monolith API and Prisma relational schema across 28+ domain models.",
+      "Architected the Fastify TypeScript modular monolith API and Prisma relational schema across 35 Prisma domain models.",
       "Engineered an auditable double-entry inventory ledger calculating stock balances strictly via Available = On Hand - Reserved.",
       "Built the backend-enforced Granular Visibility & Pricing Engine preventing data leakage of confidential wholesale stock.",
       "Implemented the multi-role portal system separating Godown Owner Console (React 19/Ant Design) from the Retailer Mobile Portal.",
@@ -343,7 +343,7 @@ export const projectsData: Project[] = [
       "Designed the Enquiry-to-Order pipeline (DRAFT → SUBMITTED → QUOTED → ACCEPTED → FULFILLED) with frozen line-item pricing.",
     ],
     keyFeatures: [
-      "Multi-tenant godown operations with organization-scoped Row-Level Security (RLS) enforcement.",
+      "Multi-tenant godown operations with application-enforced organizational scoping and RBAC permissions.",
       "Strict double-entry stock ledger guaranteeing concurrency-safe inventory adjustments and transfer audits.",
       "Backend-enforced visibility rules: owner configures exact quantity, in-stock status flag, or hidden status per retailer.",
       "Personalized pricing tier matrix serving retailer-specific wholesale price lists on authenticated login.",
@@ -365,7 +365,7 @@ export const projectsData: Project[] = [
         { name: "Owner Web Console", tech: "React 19 / Ant Design / Vite", role: "Warehouse operations, inventory adjustments, retailer approvals, price lists" },
         { name: "Retailer Portal", tech: "Next.js / TypeScript", role: "Mobile-first catalog browsing, quote requests, inquiry tracking" },
         { name: "Core API Monolith", tech: "Fastify / Node.js 24", role: "RBAC guards, inventory ledger transactions, visibility query filtering" },
-        { name: "Ledger Database", tech: "PostgreSQL / Prisma ORM", role: "28+ tables, organization multi-tenancy, audit logging" },
+        { name: "Ledger Database", tech: "PostgreSQL / Prisma ORM", role: "35 models, organization multi-tenancy, audit logging" },
       ],
     },
     deepDive: {
@@ -394,7 +394,7 @@ export const projectsData: Project[] = [
       },
     ],
     metrics: [
-      { label: "DATABASE MODELS", value: "28+ Prisma Tables" },
+      { label: "DATABASE MODELS", value: "35 Prisma Models" },
       { label: "LEDGER INTEGRITY", value: "Double-Entry" },
       { label: "VISIBILITY", value: "Backend Enforced" },
     ],
@@ -540,7 +540,7 @@ export const projectsData: Project[] = [
     engineeringContribution: [
       "Engineered automated report retrieval pipelines for AngelOne and IIFL financial portals.",
       "Constructed resilient Selenium browser automation handling 2FA authentication checkpoints and session renewal.",
-      "Implemented coordinate-density PDF parsing heuristics extracting tabular data across page boundaries with 99.8% accuracy.",
+      "Implemented coordinate-density PDF parsing heuristics extracting tabular data reliably across complex page boundaries.",
       "Built F&O (Futures & Options) profit/loss and trade normalization logic calculating realized gains and brokerage deductions.",
       "Designed MongoDB timeseries document collections for high-speed batch persistence and financial audit trails.",
     ],
@@ -594,7 +594,7 @@ export const projectsData: Project[] = [
       },
     ],
     metrics: [
-      { label: "PARSING ACCURACY", value: "99.8%" },
+      { label: "PARSING ENGINE", value: "PDFPlumber & Pandas" },
       { label: "BROKERS", value: "AngelOne & IIFL" },
       { label: "DOCUMENTS", value: "PDF & XLSX" },
     ],
@@ -613,11 +613,11 @@ export const projectsData: Project[] = [
     displayOrder: 6,
     title: "Offline Games Hub",
     subtitle: "A collection of games designed to work without an internet connection.",
-    tagline: "100+ ways to play. No connection required.",
+    tagline: "Play anywhere. No connection required.",
     shortDescription:
       "A native Android game hub housing a curated collection of offline 2D games. Engineered with an underlying C++ game engine core, optimized asset bundling, and zero network dependency during gameplay.",
     fullDescription:
-      "An Android game hub designed to bring more than 100 lightweight 2D games together inside one unified application. The product emphasizes complete offline access, a polished native Android experience, and an underlying reusable game engine architecture bridging native Java/Kotlin Android interfaces with a high-performance C++ core.",
+      "An Android game hub designed to bring a curated collection of lightweight 2D arcade games together inside one unified application. The product emphasizes complete offline access, a polished native Android experience, and an underlying reusable game engine architecture bridging native Java/Kotlin Android interfaces with a high-performance C++ core.",
     category: "Android Engineering / Gaming / C++ Game Technology",
     filterCategory: "Mobile & Gaming",
     status: "Completed",
@@ -645,7 +645,7 @@ export const projectsData: Project[] = [
     keyFeatures: [
       "Guaranteed zero network dependency: all games, sound effects, and sprites bundled locally.",
       "Unified Android catalogue with category discovery, search, and instant launch.",
-      "Reusable C++ game loop managing 60 FPS physics updates, collision grids, and particle emitters.",
+      "Reusable C++ game loop managing real-time physics updates, collision grids, and particle emitters.",
       "Local state serialization preserving game progress across Android activity lifecycle events.",
     ],
     architecture: {
@@ -667,7 +667,7 @@ export const projectsData: Project[] = [
     },
     challenges: [
       {
-        title: "Minimizing APK Binary Footprint Across 100+ Games",
+        title: "Minimizing APK Binary Footprint Across Extensible Mini-Games",
         description: "Bundling large numbers of independent games can easily exceed Android install limits.",
         solution: "Engineered shared sprite atlases, procedural vector rendering for UI chrome, and dynamic C++ code asset sharing.",
       },
@@ -675,7 +675,7 @@ export const projectsData: Project[] = [
     metrics: [
       { label: "CONNECTIVITY", value: "100% Offline" },
       { label: "CORE ENGINE", value: "C++ / NDK" },
-      { label: "RENDER TARGET", value: "60 FPS" },
+      { label: "GRAPHICS", value: "OpenGL ES / JNI" },
     ],
     schematicType: "offline-games",
     githubUrl: null,
@@ -753,7 +753,7 @@ export const projectsData: Project[] = [
     metrics: [
       { label: "PARSER", value: "Streaming JSONL" },
       { label: "STORAGE", value: "Zero Cloud / Local" },
-      { label: "INDEX SPEED", value: "< 200ms" },
+      { label: "PROCESSING", value: "Memory Virtualized" },
     ],
     schematicType: "claude-explorer",
     githubUrl: null,
@@ -825,9 +825,9 @@ export const projectsData: Project[] = [
     },
     challenges: [
       {
-        title: "Ensuring 100% Privacy Without Sacrificing Semantic Search",
+        title: "Ensuring Strict Privacy Without Sacrificing Semantic Search",
         description: "Cloud embedding APIs violate privacy, while running massive embedding models locally strains consumer laptops.",
-        solution: "Benchmarked and integrated lightweight quantized embedding models with small parameter footprints running in sub-50ms.",
+        solution: "Benchmarked and integrated lightweight quantized embedding models with small parameter footprints for local similarity ranking.",
       },
     ],
     metrics: [

@@ -34,11 +34,13 @@ export function ExperimentsSection() {
                 </div>
                 <span
                   className={`${styles.statusBadge} ${
-                    exp.status === "Active"
+                    exp.status === "Working prototype"
                       ? styles.statusActive
-                      : exp.status === "Benchmarked"
+                      : exp.status === "Active research"
                       ? styles.statusBenchmarked
-                      : styles.statusShipped
+                      : exp.status === "Completed experiment"
+                      ? styles.statusShipped
+                      : styles.statusExploration
                   }`}
                 >
                   [{exp.status.toUpperCase()}]

@@ -107,7 +107,7 @@ export function ContactSection() {
                   <ArrowUpRight size={14} className={styles.arrowIcon} />
                 </div>
                 <span className={styles.socialLabel}>GITHUB</span>
-                <span className={styles.socialDetail}>@manthandubey</span>
+                <span className={styles.socialDetail}>@dubeymnthn</span>
               </a>
 
               <a
@@ -122,7 +122,7 @@ export function ContactSection() {
                   <ArrowUpRight size={14} className={styles.arrowIcon} />
                 </div>
                 <span className={styles.socialLabel}>LINKEDIN</span>
-                <span className={styles.socialDetail}>in/manthandubey</span>
+                <span className={styles.socialDetail}>in/dubeymnthn</span>
               </a>
 
               <a
@@ -238,14 +238,14 @@ export function ContactSection() {
                 onMouseEnter={() => soundManager.playHover()}
               >
                 <Send size={14} />
-                <span>DISPATCH TRANSMISSION</span>
+                <span>DISPATCH VIA EMAIL CLIENT</span>
                 <ArrowUpRight size={14} className={styles.btnArrow} />
               </button>
 
               {dispatched && (
                 <div className={styles.dispatchedBanner}>
                   <Check size={14} />
-                  <span>EMAIL CLIENT TRIGGERED — LOOKING FORWARD TO CONNECTING.</span>
+                  <span>DEFAULT EMAIL CLIENT OPENED WITH PRE-FILLED INQUIRY.</span>
                 </div>
               )}
             </form>

@@ -27,7 +27,7 @@ export function ProjectArchitectureDiagram({ type, title }: ArchitectureDiagramP
   return (
     <div className={styles.diagramContainer} aria-label={`${title} Architecture Diagram`}>
       <div className={styles.diagramHeader}>
-        <span className={styles.diagTitle}>SYSTEM SCHEMATIC</span>
+        <span className={styles.diagTitle}>ARCHITECTURAL SYSTEM SCHEMATIC</span>
         <span className={styles.diagType}>[{type.toUpperCase()}]</span>
       </div>
 

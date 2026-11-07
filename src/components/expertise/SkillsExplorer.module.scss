@@ -285,6 +285,62 @@
   transition: transform $transition-fast;
 }
 
+.projectRefGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.projectRefTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.projectRefPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.projectRefBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  background-color: #192015;
+  border: 1px solid rgba(197, 243, 107, 0.3);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: var(--accent);
+    background-color: rgba(197, 243, 107, 0.12);
+    color: var(--accent);
+
+    .projectRefArrow {
+      transform: translate(1px, -1px);
+    }
+  }
+}
+
+.projectRefIcon {
+  color: var(--accent);
+}
+
+.projectRefArrow {
+  color: var(--accent);
+  transition: transform $transition-fast;
+}
+
 // Search Section
 .searchSection {
   display: flex;
@@ -483,6 +539,27 @@
   flex-wrap: wrap;
   gap: 0.35rem;
   margin-top: 0.25rem;
+}
+
+.cardProjectsBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.625rem;
+  color: var(--accent);
+  background: rgba(197, 243, 107, 0.06);
+  padding: 0.2rem 0.45rem;
+  border-left: 2px solid var(--accent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardProjectsIcon {
+  flex-shrink: 0;
+  color: var(--accent);
 }
 
 .relTag {

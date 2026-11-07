@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, X, ArrowUpRight, RotateCcw } from "lucide-react";
+import { Search, X, ArrowUpRight, RotateCcw, FolderGit2 } from "lucide-react";
 import styles from "./SkillsExplorer.module.scss";
 import { skillsData, skillCategories, SkillNode, SkillCategory } from "@/data/skills";
 import { soundManager } from "@/lib/sound";
@@ -138,6 +138,17 @@ export function SkillSearch({ onSelectSkill, selectedSkill }: SkillSearchProps) 
                 </div>
                 <h5 className={styles.cardName}>{skill.name}</h5>
                 <p className={styles.cardDesc}>{skill.description}</p>
+                {skill.usedInProjects && skill.usedInProjects.length > 0 && (
+                  <div className={styles.cardProjectsBadge}>
+                    <FolderGit2 size={11} className={styles.cardProjectsIcon} />
+                    <span>
+                      {skill.usedInProjects.map((p) => p.title).slice(0, 2).join(", ")}
+                      {skill.usedInProjects.length > 2
+                        ? ` +${skill.usedInProjects.length - 2}`
+                        : ""}
+                    </span>
+                  </div>
+                )}
                 <div className={styles.cardRelated}>
                   {skill.related.slice(0, 3).map((r) => (
                     <span key={r} className={styles.relTag}>
