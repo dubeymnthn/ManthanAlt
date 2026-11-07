@@ -14,12 +14,12 @@ interface SkillsScene3DProps {
 }
 
 const CATEGORY_COLORS: Record<SkillCategory, string> = {
-  Frontend: "#C5F36B",
-  Backend: "#879B67",
-  Mobile: "#A3E635",
-  Databases: "#4ADE80",
-  "Infrastructure & DevOps": "#E2E8F0",
-  "AI & Automation": "#FACC15",
+  Frontend: "#1D2921",
+  Backend: "#72953F",
+  Mobile: "#376E37",
+  Databases: "#285E52",
+  "Infrastructure & DevOps": "#4A6B5D",
+  "AI & Automation": "#5E7E38",
 };
 
 export function SkillsScene3D({
@@ -80,16 +80,16 @@ export function SkillsScene3D({
         dampingFactor={0.05}
       />
 
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 10, 7]} intensity={1.2} />
-      <pointLight position={[0, 0, 0]} intensity={1.5} color="#C5F36B" distance={8} />
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[5, 10, 7]} intensity={1.4} color="#ffffff" />
+      <pointLight position={[0, 0, 0]} intensity={1.2} color="#72953F" distance={8} />
 
       <group ref={groupRef}>
         {/* Constellation Connection Grid */}
         <lineSegments geometry={lineData}>
           <lineBasicMaterial
-            color="#879B67"
-            opacity={0.3}
+            color="#72953F"
+            opacity={0.35}
             transparent
             depthWrite={false}
           />
@@ -104,10 +104,10 @@ export function SkillsScene3D({
             selectedSkill?.related.includes(skill.id) || false;
 
           const nodeColor = isSelected
-            ? "#ffffff"
+            ? "#1D2921"
             : isRelatedToSelected
-            ? "#C5F36B"
-            : CATEGORY_COLORS[skill.category] || "#999D92";
+            ? "#72953F"
+            : CATEGORY_COLORS[skill.category] || "#647267";
 
           const opacity = isCategoryMatch ? 1 : 0.15;
           const scale = isSelected ? 1.5 : isRelatedToSelected ? 1.25 : 1;
@@ -142,10 +142,10 @@ export function SkillsScene3D({
                 )}
                 <meshStandardMaterial
                   color={nodeColor}
-                  emissive={nodeColor}
-                  emissiveIntensity={isSelected ? 0.8 : isRelatedToSelected ? 0.5 : 0.2}
-                  roughness={0.2}
-                  metalness={0.8}
+                  emissive={isSelected ? "#72953F" : isRelatedToSelected ? "#72953F" : nodeColor}
+                  emissiveIntensity={isSelected ? 0.6 : isRelatedToSelected ? 0.4 : 0.1}
+                  roughness={0.25}
+                  metalness={0.5}
                   transparent
                   opacity={opacity}
                 />
@@ -155,7 +155,7 @@ export function SkillsScene3D({
               {isSelected && (
                 <mesh>
                   <ringGeometry args={[0.35, 0.38, 24]} />
-                  <meshBasicMaterial color="#ffffff" side={THREE.DoubleSide} />
+                  <meshBasicMaterial color="#72953F" side={THREE.DoubleSide} />
                 </mesh>
               )}
 
@@ -171,10 +171,11 @@ export function SkillsScene3D({
                     fontSize: isSelected ? "11px" : "9px",
                     fontWeight: isSelected ? 700 : 500,
                     letterSpacing: "0.08em",
-                    color: isSelected ? "#C5F36B" : "#F1F0E8",
-                    backgroundColor: "rgba(17, 19, 16, 0.85)",
-                    padding: "2px 6px",
-                    border: `1px solid ${isSelected ? "#C5F36B" : "#30352D"}`,
+                    color: isSelected ? "#72953F" : "#1D2921",
+                    backgroundColor: "rgba(255, 255, 255, 0.94)",
+                    padding: "3px 7px",
+                    border: `1px solid ${isSelected ? "#72953F" : "#DDE4D9"}`,
+                    boxShadow: "0 2px 8px rgba(29, 41, 33, 0.08)",
                     whiteSpace: "nowrap",
                     transform: "translate3d(0, 0, 0)",
                     userSelect: "none",

@@ -19,8 +19,9 @@ export function SectionHeading({
     <div className={`${styles.headingWrapper} ${className}`}>
       <div className={styles.metaRow}>
         <span className={styles.index}>{index}</span>
-        <span className={styles.divider}>/</span>
+        <span className={styles.slash} aria-hidden="true">/</span>
         <span className={styles.tag}>{tag}</span>
+        <span className={styles.graphicSlash} aria-hidden="true">{"//"}</span>
         <span className={styles.line} aria-hidden="true" />
       </div>
       <h2 className={styles.title}>{title}</h2>

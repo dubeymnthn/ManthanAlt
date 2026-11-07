@@ -34,7 +34,7 @@ export function SkillsExplorer() {
       <div className={styles.container}>
         {/* Section Heading */}
         <SectionHeading
-          index="02"
+          index="03"
           tag="TECHNICAL EXPERTISE"
           title="A toolkit for building complete products."
           subtitle="An interactive 3D technical constellation and categorized directory spanning full-stack web, distributed systems, mobile architectures, databases, infrastructure, and applied AI."

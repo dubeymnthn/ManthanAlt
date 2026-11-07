@@ -119,34 +119,34 @@ export function SystemsCore3D({
 
   return (
     <group ref={groupRef}>
-      {/* Ambient and Specular Lighting tuned for dark metallic surfaces */}
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[6, 8, 5]} intensity={1.2} color="#ffffff" />
-      <directionalLight position={[-6, -4, -4]} intensity={0.6} color="#879B67" />
-      <pointLight position={[0, 0, 0]} intensity={1.8} color="#C5F36B" distance={4} />
+      {/* Ambient and Specular Lighting tuned for Light Editorial surfaces */}
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[6, 8, 5]} intensity={1.4} color="#ffffff" />
+      <directionalLight position={[-6, -4, -4]} intensity={0.6} color="#72953F" />
+      <pointLight position={[0, 0, 0]} intensity={1.2} color="#72953F" distance={4} />
 
       {/* Interconnecting Wireframe Guides */}
       <lineSegments geometry={lineGeometry}>
-        <lineBasicMaterial color="#C5F36B" opacity={0.35} transparent depthWrite={false} />
+        <lineBasicMaterial color="#72953F" opacity={0.4} transparent depthWrite={false} />
       </lineSegments>
 
       {/* Floating Orbital Rings */}
       <mesh ref={ringRef1} rotation={[Math.PI / 4, 0, 0]}>
         <torusGeometry args={[2.4, 0.012, 16, 80]} />
-        <meshBasicMaterial color="#C5F36B" opacity={0.25} transparent />
+        <meshBasicMaterial color="#72953F" opacity={0.35} transparent />
       </mesh>
       <mesh ref={ringRef2} rotation={[-Math.PI / 3, Math.PI / 6, 0]}>
         <torusGeometry args={[2.7, 0.009, 16, 80]} />
-        <meshBasicMaterial color="#879B67" opacity={0.2} transparent />
+        <meshBasicMaterial color="#1D2921" opacity={0.25} transparent />
       </mesh>
       <mesh ref={ringRef3} rotation={[Math.PI / 6, -Math.PI / 4, 0]}>
         <torusGeometry args={[3.0, 0.007, 16, 80]} />
-        <meshBasicMaterial color="#30352D" opacity={0.4} transparent />
+        <meshBasicMaterial color="#DDE4D9" opacity={0.6} transparent />
       </mesh>
 
       {/* Floating Particles (Data Packets) */}
       <points ref={particlesRef} geometry={particles}>
-        <pointsMaterial size={0.035} color="#C5F36B" transparent opacity={0.6} sizeAttenuation />
+        <pointsMaterial size={0.035} color="#72953F" transparent opacity={0.65} sizeAttenuation />
       </points>
 
       {/* Modules */}
@@ -172,11 +172,11 @@ export function SystemsCore3D({
                 <boxGeometry args={mod.size} />
               )}
               <meshStandardMaterial
-                color={isHovered ? "#C5F36B" : isCore ? "#1e221b" : "#191c18"}
-                metalness={0.88}
-                roughness={0.25}
-                emissive={isHovered ? "#C5F36B" : isCore ? "#253018" : "#0d100a"}
-                emissiveIntensity={isHovered ? 0.6 : 0.2}
+                color={isHovered ? "#B7DB72" : isCore ? "#1D2921" : "#FFFFFF"}
+                metalness={0.3}
+                roughness={0.35}
+                emissive={isHovered ? "#72953F" : isCore ? "#1D2921" : "#EEF2E9"}
+                emissiveIntensity={isHovered ? 0.6 : 0.15}
               />
             </mesh>
 
@@ -194,8 +194,8 @@ export function SystemsCore3D({
                 ]}
               />
               <lineBasicMaterial
-                color={isHovered ? "#ffffff" : isCore ? "#C5F36B" : "#879B67"}
-                opacity={isHovered ? 1 : 0.55}
+                color={isHovered ? "#1D2921" : isCore ? "#72953F" : "#72953F"}
+                opacity={isHovered ? 1 : 0.65}
                 transparent
               />
             </lineSegments>

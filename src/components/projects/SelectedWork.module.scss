@@ -40,7 +40,7 @@
 .projectSearchInput {
   width: 100%;
   padding: 1rem 3rem 1rem 3.25rem;
-  background-color: #141713;
+  background-color: var(--color-surface);
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.875rem;
@@ -53,8 +53,8 @@
   }
 
   &:focus {
-    border-color: var(--accent);
-    background-color: var(--bg-surface-elevated);
+    border-color: var(--accent-muted);
+    background-color: var(--color-surface);
   }
 }
 
@@ -67,7 +67,7 @@
   transition: color $transition-fast;
 
   &:hover {
-    color: var(--accent);
+    color: var(--accent-muted);
   }
 }
 
@@ -79,7 +79,7 @@
 
 .filterPill {
   padding: 0.4rem 0.85rem;
-  background-color: #151814;
+  background-color: var(--color-surface);
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
@@ -93,9 +93,9 @@
   }
 
   &.filterPillActive {
-    background-color: var(--accent);
-    color: var(--bg-primary);
-    border-color: var(--accent);
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border-color: var(--color-primary);
     font-weight: 700;
   }
 }
@@ -105,7 +105,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(48, 53, 45, 0.6);
+  border-top: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
@@ -124,12 +124,13 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: var(--accent);
-  box-shadow: 0 0 5px var(--accent);
+  background-color: var(--accent-muted);
+  box-shadow: 0 0 5px var(--accent-muted);
 }
 
 .countNumber {
-  color: var(--accent);
+  color: var(--accent-muted);
+  font-weight: 700;
 }
 
 .resetFiltersBtn {

@@ -21,15 +21,16 @@
 .timelineCard {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
-  transition: border-color $transition-smooth, background-color $transition-smooth;
+  transition: border-color $transition-smooth, background-color $transition-smooth, box-shadow $transition-smooth;
 
   &:hover {
-    border-color: rgba(197, 243, 107, 0.35);
+    border-color: var(--accent-muted);
+    box-shadow: 0 8px 24px rgba(29, 41, 33, 0.05);
   }
 
   &.cardActive {
-    border-color: var(--accent);
-    background-color: var(--bg-surface-elevated);
+    border-color: var(--accent-muted);
+    background-color: var(--bg-surface);
   }
 }
 
@@ -61,7 +62,7 @@
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-muted);
 }
 
 .titleGroup {
@@ -91,7 +92,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  color: var(--accent);
+  color: var(--accent-muted);
   font-weight: 600;
 }
 
@@ -124,7 +125,7 @@
   align-items: center;
   gap: 0.45rem;
   padding: 0.4rem 0.85rem;
-  background-color: #151814;
+  background-color: var(--color-surface-muted);
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
@@ -137,14 +138,14 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  background-color: #151814;
+  background-color: var(--color-surface-muted);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   transition: all $transition-fast;
 
   &:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+    color: var(--accent-muted);
+    border-color: var(--accent-muted);
   }
 }
 
@@ -153,7 +154,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  border-top: 1px solid rgba(48, 53, 45, 0.6);
+  border-top: 1px solid var(--border-color);
   padding-top: 1.75rem;
   animation: fadeIn 250ms ease;
 
@@ -213,13 +214,13 @@
 .bulletDot {
   width: 5px;
   height: 5px;
-  background-color: var(--accent);
+  background-color: var(--accent-muted);
   flex-shrink: 0;
   transform: translateY(-2px);
 }
 
 .contribIcon {
-  color: var(--accent);
+  color: var(--accent-muted);
   flex-shrink: 0;
   transform: translateY(2px);
 }
@@ -230,7 +231,7 @@
   gap: 1rem;
   margin-top: 0.5rem;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(48, 53, 45, 0.6);
+  border-top: 1px solid var(--border-color);
   flex-wrap: wrap;
 }
 
@@ -249,9 +250,9 @@
 
 .techBadge {
   padding: 0.25rem 0.65rem;
-  background-color: #151814;
+  background-color: var(--color-surface-muted);
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
-  color: var(--accent);
+  color: var(--text-primary);
 }

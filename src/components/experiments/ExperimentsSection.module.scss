@@ -47,7 +47,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(48, 53, 45, 0.7);
+  border-bottom: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
 }
@@ -56,12 +56,12 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: var(--accent);
+  color: var(--accent-muted);
   font-weight: 700;
 }
 
 .flaskIcon {
-  color: var(--accent);
+  color: var(--accent-muted);
 }
 
 .sep {
@@ -80,7 +80,7 @@
 }
 
 .statusActive {
-  color: var(--accent);
+  color: var(--accent-muted);
 }
 
 .statusBenchmarked {
@@ -88,7 +88,7 @@
 }
 
 .statusShipped {
-  color: #a3e635;
+  color: #72953F;
 }
 
 .statusExploration {
@@ -111,7 +111,7 @@
 }
 
 .terminalWindow {
-  background-color: #0d0f0c;
+  background-color: var(--color-dark-section);
   border: 1px solid var(--border-color);
   overflow: hidden;
 }
@@ -121,7 +121,7 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.35rem 0.65rem;
-  background-color: #151814;
+  background-color: rgba(29, 41, 33, 0.95);
   border-bottom: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.5625rem;
@@ -130,14 +130,14 @@
 }
 
 .termIcon {
-  color: var(--accent);
+  color: #B7DB72;
 }
 
 .terminalText {
   padding: 0.65rem 0.75rem;
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
-  color: var(--accent);
+  color: #B7DB72;
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-all;
@@ -145,8 +145,8 @@
 
 .findingsBox {
   padding: 0.65rem 0.85rem;
-  background-color: rgba(197, 243, 107, 0.04);
-  border-left: 2px solid var(--accent);
+  background-color: rgba(114, 149, 63, 0.08);
+  border-left: 2px solid var(--accent-muted);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -156,7 +156,7 @@
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.625rem;
   letter-spacing: 0.08em;
-  color: var(--accent);
+  color: var(--accent-muted);
   font-weight: 700;
 }
 
@@ -174,7 +174,7 @@
 
 .techPill {
   padding: 0.2rem 0.5rem;
-  background-color: #141713;
+  background-color: var(--color-surface-muted);
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.625rem;

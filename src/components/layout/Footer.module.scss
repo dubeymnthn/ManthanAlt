@@ -3,7 +3,7 @@
 
 .footer {
   border-top: 1px solid var(--border-color);
-  background-color: #0d0f0c;
+  background-color: var(--color-surface-muted);
   position: relative;
   z-index: 10;
   padding-top: 2rem;
@@ -20,7 +20,7 @@
   justify-content: space-between;
   padding-bottom: 1.5rem;
   margin-bottom: 2.5rem;
-  border-bottom: 1px solid rgba(48, 53, 45, 0.6);
+  border-bottom: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
@@ -39,7 +39,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--accent);
+  background-color: var(--accent-muted);
 }
 
 .label {
@@ -105,8 +105,8 @@
   width: 28px;
   height: 28px;
   background-color: var(--bg-surface);
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.8125rem;
   font-weight: 700;
@@ -132,11 +132,11 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 0.75rem;
-  background-color: rgba(197, 243, 107, 0.06);
-  border: 1px solid rgba(197, 243, 107, 0.25);
+  background-color: rgba(114, 149, 63, 0.08);
+  border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
-  color: var(--accent);
+  color: var(--accent-muted);
   width: fit-content;
 }
 
@@ -144,8 +144,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--accent);
-  box-shadow: 0 0 6px var(--accent);
+  background-color: var(--accent-muted);
+  box-shadow: 0 0 6px var(--accent-muted);
 }
 
 .linksCol {
@@ -267,7 +267,7 @@
 }
 
 .mottoHighlight {
-  color: var(--accent);
+  color: var(--accent-muted);
   font-weight: 600;
 }
 

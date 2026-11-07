@@ -1,23 +1,37 @@
-// Design System Variables — Digital Craft: Systems in Motion
+// ==============================================================================
+// DESIGN SYSTEM VARIABLES — LIGHT EDITORIAL / CREATIVE ENGINEERING
+// ==============================================================================
 
-// Color Palette
-$color-bg-primary: #111310;
-$color-bg-surface: #191C18;
-$color-bg-surface-elevated: #20241E;
-$color-bg-surface-hover: #262B24;
+// Light Editorial Color Palette
+$color-background: #F7F8F3;       // Warm ivory primary background
+$color-surface: #FFFFFF;          // Pure white surface
+$color-surface-muted: #EEF2E9;    // Soft muted surface for elevation
+$color-surface-hover: #E7ECE3;    // Crisp hover surface
+$color-primary: #1D2921;          // Deep forest green / charcoal typography
+$color-secondary: #647267;        // Muted sage grey secondary text
+$color-tertiary: #8A968C;         // Technical label grey
+$color-accent: #B7DB72;           // Vibrant chartreuse accent
+$color-accent-dark: #72953F;      // High-contrast deep chartreuse for readable text & active states
+$color-border: #DDE4D9;           // Subtle crisp borders
+$color-grid: #E7ECE3;             // Technical grid guidelines
+$color-dark-section: #233229;     // Deep forest contrast surface
 
-$color-text-primary: #F1F0E8;
-$color-text-secondary: #999D92;
-$color-text-tertiary: #6B7064;
+// Backward-compatible semantic SCSS aliases
+$color-bg-primary: $color-background;
+$color-bg-surface: $color-surface;
+$color-bg-surface-elevated: $color-surface-muted;
+$color-bg-surface-hover: $color-surface-hover;
 
-$color-accent: #C5F36B;
-$color-accent-muted: #879B67;
-$color-accent-subtle: rgba(197, 243, 107, 0.08);
-$color-accent-glow: rgba(197, 243, 107, 0.22);
+$color-text-primary: $color-primary;
+$color-text-secondary: $color-secondary;
+$color-text-tertiary: $color-tertiary;
 
-$color-border: #30352D;
-$color-border-light: rgba(241, 240, 232, 0.12);
-$color-border-accent: rgba(197, 243, 107, 0.35);
+$color-accent-muted: $color-accent-dark;
+$color-accent-subtle: rgba(183, 219, 114, 0.22);
+$color-accent-glow: rgba(183, 219, 114, 0.45);
+
+$color-border-light: rgba(29, 41, 33, 0.08);
+$color-border-accent: rgba(114, 149, 63, 0.4);
 
 // Typography Fonts
 $font-display: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;

@@ -67,7 +67,7 @@ export function SkillDetailModal({
               {skill.usedInProjects.map((p) => (
                 <a
                   key={p.id}
-                  href={`#projects`}
+                  href="#work"
                   className={styles.projectRefBtn}
                   onClick={() => {
                     soundManager.playClick();

@@ -20,8 +20,8 @@ export function AboutSection() {
     <section className={styles.section} id="about" aria-label="About Me">
       <div className={styles.container}>
         <SectionHeading
-          index="04"
-          tag="THE PERSON BEHIND THE CODE"
+          index="05"
+          tag="ABOUT"
           title={personalData.aboutHeadline}
         />
 

@@ -11,8 +11,8 @@ export function ExperimentsSection() {
     <section className={styles.section} id="experiments" aria-label="Experiments Lab">
       <div className={styles.container}>
         <SectionHeading
-          index="05"
-          tag="THE EXPERIMENT LAB"
+          index="06"
+          tag="EXPERIMENT LAB"
           title="Curiosity in code. Continuous technical inquiry."
           subtitle="Beyond client and production deliverables, I maintain an active workbench experimenting with local LLM quantization, MCP protocols, generative audio synthesis, and custom WebGL shaders."
         />

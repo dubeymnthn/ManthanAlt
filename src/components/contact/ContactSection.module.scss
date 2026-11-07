@@ -54,7 +54,7 @@
 }
 
 .cardTag {
-  color: var(--accent);
+  color: var(--accent-muted);
   font-weight: 600;
 }
 
@@ -71,7 +71,7 @@
   transition: color $transition-fast;
 
   &:hover {
-    color: var(--accent);
+    color: var(--accent-muted);
   }
 }
 
@@ -87,8 +87,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1.15rem;
-  background-color: var(--accent);
-  color: var(--bg-primary);
+  background-color: var(--color-primary);
+  color: #FFFFFF;
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
   font-weight: 700;
@@ -96,7 +96,7 @@
   transition: all $transition-fast;
 
   &:hover {
-    background-color: #d7ff85;
+    background-color: var(--color-accent-dark);
     transform: translateY(-1px);
   }
 }
@@ -106,7 +106,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1.15rem;
-  background-color: #151814;
+  background-color: var(--color-surface-muted);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   font-family: var(--font-ibm-plex-mono), monospace;
@@ -121,7 +121,7 @@
 }
 
 .checkIcon {
-  color: var(--accent);
+  color: var(--accent-muted);
 }
 
 .socialGrid {
@@ -145,16 +145,17 @@
 
   &:hover {
     border-color: var(--accent-muted);
-    background-color: var(--bg-surface-elevated);
+    background-color: var(--bg-surface);
+    box-shadow: 0 8px 24px rgba(29, 41, 33, 0.05);
     transform: translateY(-2px);
 
     .arrowIcon {
-      color: var(--accent);
+      color: var(--accent-muted);
       transform: translate(2px, -2px);
     }
 
     .socialIcon {
-      color: var(--accent);
+      color: var(--accent-muted);
     }
   }
 }
@@ -191,7 +192,7 @@
 }
 
 .statusBox {
-  background-color: #151814;
+  background-color: var(--color-surface-muted);
   border: 1px solid var(--border-color);
   padding: 1.25rem;
   display: flex;
@@ -213,8 +214,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--accent);
-  box-shadow: 0 0 6px var(--accent);
+  background-color: var(--accent-muted);
+  box-shadow: 0 0 6px var(--accent-muted);
 }
 
 .statusTitle {
@@ -222,7 +223,7 @@
 }
 
 .statusVal {
-  color: var(--accent);
+  color: var(--accent-muted);
   font-weight: 600;
 }
 
@@ -251,7 +252,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(48, 53, 45, 0.7);
+  border-bottom: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
   flex-wrap: wrap;
@@ -265,7 +266,7 @@
 }
 
 .formSub {
-  color: var(--accent);
+  color: var(--accent-muted);
   font-size: 0.6875rem;
 }
 
@@ -290,7 +291,7 @@
 
 .typePill {
   padding: 0.4rem 0.75rem;
-  background-color: #151814;
+  background-color: var(--color-surface-muted);
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
@@ -303,9 +304,9 @@
   }
 
   &.typePillActive {
-    background-color: var(--accent);
-    color: var(--bg-primary);
-    border-color: var(--accent);
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border-color: var(--color-primary);
     font-weight: 700;
   }
 }
@@ -323,7 +324,7 @@
 .formInput {
   width: 100%;
   padding: 0.85rem 1rem;
-  background-color: #151814;
+  background-color: #FFFFFF;
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.8125rem;
@@ -332,8 +333,8 @@
   transition: border-color $transition-fast;
 
   &:focus {
-    border-color: var(--accent);
-    background-color: var(--bg-surface-elevated);
+    border-color: var(--accent-muted);
+    background-color: #FFFFFF;
   }
 
   &::placeholder {
@@ -344,7 +345,7 @@
 .formTextarea {
   width: 100%;
   padding: 0.85rem 1rem;
-  background-color: #151814;
+  background-color: #FFFFFF;
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.8125rem;
@@ -354,8 +355,8 @@
   transition: border-color $transition-fast;
 
   &:focus {
-    border-color: var(--accent);
-    background-color: var(--bg-surface-elevated);
+    border-color: var(--accent-muted);
+    background-color: #FFFFFF;
   }
 
   &::placeholder {
@@ -369,8 +370,8 @@
   justify-content: center;
   gap: 0.65rem;
   padding: 1rem 2rem;
-  background-color: var(--accent);
-  color: var(--bg-primary);
+  background-color: var(--color-primary);
+  color: #FFFFFF;
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.8125rem;
   font-weight: 700;
@@ -378,7 +379,7 @@
   transition: all $transition-fast;
 
   &:hover {
-    background-color: #d7ff85;
+    background-color: var(--color-accent-dark);
     transform: translateY(-2px);
 
     .btnArrow {
@@ -396,10 +397,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background-color: rgba(197, 243, 107, 0.08);
-  border: 1px solid var(--accent);
+  background-color: rgba(114, 149, 63, 0.08);
+  border: 1px solid var(--accent-muted);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
-  color: var(--accent);
+  color: var(--accent-muted);
   letter-spacing: 0.06em;
 }

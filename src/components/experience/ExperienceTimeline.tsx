@@ -19,7 +19,7 @@ export function ExperienceTimeline() {
     <section className={styles.section} id="experience" aria-label="Professional Experience">
       <div className={styles.container}>
         <SectionHeading
-          index="03"
+          index="04"
           tag="EXPERIENCE"
           title="Where I've contributed."
           subtitle="A track record of engineering scalable backend services, full-stack clinical applications, and mission-critical financial systems across leading organizations."

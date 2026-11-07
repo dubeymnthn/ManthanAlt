@@ -2,23 +2,38 @@
 @use "../styles/mixins" as *;
 
 :root {
-  --bg-primary: #111310;
-  --bg-surface: #191C18;
-  --bg-surface-elevated: #20241E;
-  --bg-surface-hover: #262B24;
+  // New Light Editorial System Tokens
+  --color-background: #F7F8F3;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #EEF2E9;
+  --color-surface-hover: #E7ECE3;
+  --color-primary: #1D2921;
+  --color-secondary: #647267;
+  --color-tertiary: #8A968C;
+  --color-accent: #B7DB72;
+  --color-accent-dark: #72953F;
+  --color-border: #DDE4D9;
+  --color-grid: #E7ECE3;
+  --color-dark-section: #233229;
 
-  --text-primary: #F1F0E8;
-  --text-secondary: #999D92;
-  --text-tertiary: #6B7064;
+  // Semantic Aliases
+  --bg-primary: #F7F8F3;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #EEF2E9;
+  --bg-surface-hover: #E7ECE3;
 
-  --accent: #C5F36B;
-  --accent-muted: #879B67;
-  --accent-subtle: rgba(197, 243, 107, 0.08);
-  --accent-glow: rgba(197, 243, 107, 0.22);
+  --text-primary: #1D2921;
+  --text-secondary: #647267;
+  --text-tertiary: #8A968C;
 
-  --border-color: #30352D;
-  --border-light: rgba(241, 240, 232, 0.12);
-  --border-accent: rgba(197, 243, 107, 0.35);
+  --accent: #B7DB72;
+  --accent-muted: #72953F;
+  --accent-subtle: rgba(183, 219, 114, 0.22);
+  --accent-glow: rgba(183, 219, 114, 0.45);
+
+  --border-color: #DDE4D9;
+  --border-light: rgba(29, 41, 33, 0.08);
+  --border-accent: rgba(114, 149, 63, 0.45);
 
   --nav-height: 72px;
 }
@@ -33,8 +48,8 @@
 
 html {
   font-size: 16px;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: var(--color-background);
+  color: var(--color-primary);
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -43,8 +58,8 @@ html {
 
 body {
   font-family: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: var(--color-background);
+  color: var(--color-primary);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
@@ -52,86 +67,84 @@ body {
   @include custom-scrollbar;
 }
 
-// Selection Highlight
-::selection {
-  background-color: var(--accent);
-  color: var(--bg-primary);
+// Architectural background grid overlay
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(221, 228, 217, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(221, 228, 217, 0.45) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-// Base Typography
+// Main page wrapper above background grid
+main {
+  position: relative;
+  z-index: 1;
+}
+
+// Selection Highlight
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+// Typography Hierarchy Defaults
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-space-grotesk), sans-serif;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.15;
   letter-spacing: -0.025em;
-  color: var(--text-primary);
+  color: var(--color-primary);
 }
 
 p {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  line-height: 1.7;
+  color: var(--color-secondary);
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 a {
   color: inherit;
   text-decoration: none;
   transition: color var(--transition-fast, 160ms ease);
+
+  &:hover {
+    color: var(--color-accent-dark);
+  }
 }
 
 button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
   background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
   outline: none;
 }
 
+// Monospace Code / Metadata Tags
 code, kbd, samp, pre {
   font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.875em;
 }
 
-// Grid Layout Helpers
-.site-wrapper {
-  position: relative;
-  width: 100%;
-  overflow-x: hidden;
+// Custom Cursor (Only on non-touch devices)
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: default;
+  }
 }
 
-.section-container {
-  @include section-container;
-}
-
-// Background Grid Overlay
-.technical-grid-bg {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.3;
-  @include subtle-grid-background;
-  mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 80%);
-}
-
-// Accessibility
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
+// Accessible Focus States
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--color-accent-dark);
   outline-offset: 3px;
 }
 
-// Reduced Motion Support
+// Reduced Motion Preference
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

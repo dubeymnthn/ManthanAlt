@@ -64,7 +64,7 @@ export function SelectedWork() {
       <div className={styles.container}>
         {/* Editorial Section Heading */}
         <SectionHeading
-          index="01"
+          index="02"
           tag="SELECTED WORK"
           title="Things I've built. Systems I've shipped."
           subtitle="A comprehensive body of 11 completed engineering projects spanning real-time voice infrastructure, enterprise inventory SaaS, mobility coordination, generative AI audio, local LLMs, and developer tooling."
