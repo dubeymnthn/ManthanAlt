@@ -3,7 +3,7 @@
 
 .section {
   padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 6rem;
   position: relative;
   border-top: 1px solid var(--border-color);
 }
@@ -12,35 +12,74 @@
   @include section-container;
 }
 
-.filterBar {
+// Filter Control Panel
+.filterControlPanel {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-color);
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1.25rem;
-}
-
-.filterGroup {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.filterPrefix {
-  font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  color: var(--text-tertiary);
-  margin-right: 0.25rem;
-}
-
-.filterBtn {
-  padding: 0.35rem 0.75rem;
+  margin-bottom: 3.5rem;
   background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+}
+
+.searchBarWrap {
+  position: relative;
+  width: 100%;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 1.25rem;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.projectSearchInput {
+  width: 100%;
+  padding: 1rem 3rem 1rem 3.25rem;
+  background-color: #141713;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color $transition-fast;
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  &:focus {
+    border-color: var(--accent);
+    background-color: var(--bg-surface-elevated);
+  }
+}
+
+.clearSearchBtn {
+  position: absolute;
+  top: 50%;
+  right: 1.25rem;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.categoryPillsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filterPill {
+  padding: 0.4rem 0.85rem;
+  background-color: #151814;
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
@@ -53,7 +92,7 @@
     border-color: var(--accent-muted);
   }
 
-  &.filterActive {
+  &.filterPillActive {
     background-color: var(--accent);
     color: var(--bg-primary);
     border-color: var(--accent);
@@ -61,14 +100,163 @@
   }
 }
 
-.projectsCount {
+.filterStatusBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(48, 53, 45, 0.6);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
-  color: var(--text-tertiary);
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.projectsList {
+.statusCount {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.statusDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  box-shadow: 0 0 5px var(--accent);
+}
+
+.countNumber {
+  color: var(--accent);
+}
+
+.resetFiltersBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.6875rem;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+// Featured & Additional Subheadings
+.subheadRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.85rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.subheadTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subheadIcon {
+  color: var(--accent);
+}
+
+.subheadTitle {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+}
+
+.subheadMeta {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.featuredSection {
+  margin-bottom: 4.5rem;
+}
+
+.featuredList {
   display: flex;
   flex-direction: column;
+}
+
+.additionalSection {
+  margin-top: 1.5rem;
+}
+
+.additionalDesc {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 750px;
+  line-height: 1.6;
+}
+
+.additionalGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.unifiedList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// Empty Results
+.emptyResultsState {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.emptyTitle {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.emptySubtitle {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+}
+
+.emptyResetBtn {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: #d7ff85;
+    transform: translateY(-2px);
+  }
 }

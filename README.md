@@ -45,15 +45,24 @@ Built with Next.js 15 App Router, React 19, TypeScript, Three.js, React Three Fi
      - Graceful 2D SVG architectural blueprint fallback for non-WebGL environments.
    - Real-time station telemetry HUD.
 
-3. **01 / Selected Work**
-   - Asymmetric editorial project grid.
-   - Showcases 4 systems:
-     - **Wally Talky**: Push-to-talk voice messaging (Flutter, Fastify, Socket.IO, PostgreSQL, Redis).
-     - **StoryForge AI**: Multi-agent Hindi audio drama production studio (React, TS, Google Gemini, TTS).
-     - **Financial Data Automation**: Institutional financial data extraction (Node.js, Python, MongoDB, Selenium).
-     - **MCP Token Server**: Local authentication-token capture bridge & MCP proxy.
-   - Custom architectural system schematics (data flows, ring buffers, token bridges).
-   - Interactive full-screen **Case Study Modal** with engineering challenges, execution flowcharts, and component matrices.
+3. **01 / Selected Work (11 Completed Projects)**
+   - Three-level presentation model (Project Cards, Case Study Drawer, Technical Deep Dives).
+   - **Featured Systems (5 Core Architectures)**:
+     - **01. Wally Talky**: Push-to-talk voice messaging (Flutter, Fastify, Socket.IO, PostgreSQL, Prisma, Redis, FCM).
+     - **02. StoryForge AI**: Generative Hindi audio drama production studio (React 19, Google Gemini, ModelRouter, AntiSlopDirector, Web Audio API).
+     - **03. Dravyam — GodownOS**: Wholesale inventory & godown SaaS (Fastify, PostgreSQL, Prisma ORM 28+ tables, BullMQ, double-entry stock ledger, backend-enforced retailer visibility).
+     - **04. Multi-Platform Ride Aggregator**: Mobility & parcel logistics coordination layer (Rapido, Uber, Porter, geospatial indexing, route context).
+     - **05. Financial Data Scraper**: Institutional report harvesting & ledger reconciliation (Python, Selenium 2FA, PDFPlumber X-density clustering, MongoDB).
+   - **Additional Systems & Tools Directory (6 Completed Projects)**:
+     - **06. Offline Games Hub**: Native Android container with C++ OpenGL ES 2D game engine (100% offline runtime).
+     - **07. Claude Code History Explorer**: Local developer tool parsing JSONL agent trajectories into interactive diff timelines.
+     - **08. AI Diary**: Local-first encrypted personal journal with on-device Ollama conversational retrieval (zero cloud leakage).
+     - **09. System Beaver**: Software architecture workspace modeling semantic components, blast radiuses, and contract schemas.
+     - **10. Project Brain**: Project intelligence repository linking specs, ADRs, and task execution graphs.
+     - **11. MCP Token Server**: Local authentication bridge connecting browser tokens to IDEs via Model Context Protocol.
+   - Real-time search engine and 7 category filters (`All`, `AI & Automation`, `SaaS & Business`, `Mobile & Gaming`, `Developer Tools`, `Data Engineering`, `Mobility`).
+   - Interactive SVG architectural schematics for every project.
+   - Comprehensive **Case Study Modal** detailing real engineering challenges, execution flowcharts, component roles, and technical deep dives.
 
 4. **02 / Technical Expertise — 3D Skills Explorer**
    - **3D Skills Constellation**: Interactive 3D node network connecting related technologies across 6 core domains.
