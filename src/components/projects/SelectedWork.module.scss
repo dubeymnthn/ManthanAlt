@@ -1,0 +1,74 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  position: relative;
+  border-top: 1px solid var(--border-color);
+}
+
+.container {
+  @include section-container;
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filterPrefix {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  margin-right: 0.25rem;
+}
+
+.filterBtn {
+  padding: 0.35rem 0.75rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  transition: all $transition-fast;
+
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-muted);
+  }
+
+  &.filterActive {
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    border-color: var(--accent);
+    font-weight: 700;
+  }
+}
+
+.projectsCount {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+
+.projectsList {
+  display: flex;
+  flex-direction: column;
+}

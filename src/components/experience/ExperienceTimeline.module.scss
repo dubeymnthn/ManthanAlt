@@ -1,0 +1,257 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  position: relative;
+  border-top: 1px solid var(--border-color);
+}
+
+.container {
+  @include section-container;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.timelineCard {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  transition: border-color $transition-smooth, background-color $transition-smooth;
+
+  &:hover {
+    border-color: rgba(197, 243, 107, 0.35);
+  }
+
+  &.cardActive {
+    border-color: var(--accent);
+    background-color: var(--bg-surface-elevated);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+
+  @include mobile {
+    padding: 1.25rem;
+  }
+}
+
+.headerLeft {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+
+  @include mobile {
+    gap: 1rem;
+  }
+}
+
+.index {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.roleTitle {
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.companyMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.companyName {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.iconInline {
+  color: var(--text-tertiary);
+}
+
+.metaDivider {
+  color: var(--border-color);
+}
+
+.tenureType {
+  color: var(--text-tertiary);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.periodTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  background-color: #151814;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.expandToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #151814;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  transition: all $transition-fast;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+.cardBody {
+  padding: 0 2rem 2rem 4.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-top: 1px solid rgba(48, 53, 45, 0.6);
+  padding-top: 1.75rem;
+  animation: fadeIn 250ms ease;
+
+  @include mobile {
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.overviewText {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  max-width: 840px;
+}
+
+.detailBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.blockTitle {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+}
+
+.bulletsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bulletItem {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  max-width: 880px;
+}
+
+.bulletDot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--accent);
+  flex-shrink: 0;
+  transform: translateY(-2px);
+}
+
+.contribIcon {
+  color: var(--accent);
+  flex-shrink: 0;
+  transform: translateY(2px);
+}
+
+.techStackRow {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(48, 53, 45, 0.6);
+  flex-wrap: wrap;
+}
+
+.techLabel {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+}
+
+.techTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.techBadge {
+  padding: 0.25rem 0.65rem;
+  background-color: #151814;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  color: var(--accent);
+}

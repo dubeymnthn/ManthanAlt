@@ -1,0 +1,405 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+  position: relative;
+  border-top: 1px solid var(--border-color);
+}
+
+.container {
+  @include section-container;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 3.5rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+// Left Column: Direct Channels
+.directCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.emailCard {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+}
+
+.cardTag {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.cardProtocol {
+  color: var(--text-tertiary);
+}
+
+.emailAddress {
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  color: var(--text-primary);
+  word-break: break-all;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.emailActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.emailSendBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem;
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: #d7ff85;
+    transform: translateY(-1px);
+  }
+}
+
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem;
+  background-color: #151814;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  transition: all $transition-fast;
+
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-muted);
+  }
+}
+
+.checkIcon {
+  color: var(--accent);
+}
+
+.socialGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.socialLinkCard {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: var(--accent-muted);
+    background-color: var(--bg-surface-elevated);
+    transform: translateY(-2px);
+
+    .arrowIcon {
+      color: var(--accent);
+      transform: translate(2px, -2px);
+    }
+
+    .socialIcon {
+      color: var(--accent);
+    }
+  }
+}
+
+.socialTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.socialIcon {
+  color: var(--text-secondary);
+  transition: color $transition-fast;
+}
+
+.arrowIcon {
+  color: var(--text-tertiary);
+  transition: all $transition-fast;
+}
+
+.socialLabel {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.08em;
+}
+
+.socialDetail {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  color: var(--text-tertiary);
+}
+
+.statusBox {
+  background-color: #151814;
+  border: 1px solid var(--border-color);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  flex-wrap: wrap;
+}
+
+.statusPulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+.statusTitle {
+  color: var(--text-tertiary);
+}
+
+.statusVal {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.statusNote {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+// Right Column: Interactive Dispatch Composer
+.formCol {
+  position: relative;
+}
+
+.contactForm {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(48, 53, 45, 0.7);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.formTitle {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.formSub {
+  color: var(--accent);
+  font-size: 0.6875rem;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldLabel {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+
+.typePills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.typePill {
+  padding: 0.4rem 0.75rem;
+  background-color: #151814;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  transition: all $transition-fast;
+
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-muted);
+  }
+
+  &.typePillActive {
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    border-color: var(--accent);
+    font-weight: 700;
+  }
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background-color: #151814;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: var(--accent);
+    background-color: var(--bg-surface-elevated);
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+}
+
+.formTextarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background-color: #151814;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  outline: none;
+  resize: vertical;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: var(--accent);
+    background-color: var(--bg-surface-elevated);
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+}
+
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 2rem;
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: #d7ff85;
+    transform: translateY(-2px);
+
+    .btnArrow {
+      transform: translate(2px, -2px);
+    }
+  }
+}
+
+.btnArrow {
+  transition: transform $transition-fast;
+}
+
+.dispatchedBanner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: rgba(197, 243, 107, 0.08);
+  border: 1px solid var(--accent);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}

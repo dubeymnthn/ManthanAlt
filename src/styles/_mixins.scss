@@ -1,0 +1,89 @@
+@use "variables" as *;
+
+// Breakpoint mixins
+@mixin mobile {
+  @media (max-width: #{$bp-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$bp-tablet}) and (max-width: #{$bp-laptop - 1px}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: #{$bp-laptop}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$bp-desktop}) {
+    @content;
+  }
+}
+
+// Typography Mixins
+@mixin font-display {
+  font-family: $font-display;
+  letter-spacing: -0.03em;
+  font-feature-settings: "ss01" on, "cv01" on;
+}
+
+@mixin font-body {
+  font-family: $font-body;
+  letter-spacing: -0.01em;
+}
+
+@mixin font-mono {
+  font-family: $font-mono;
+  letter-spacing: -0.01em;
+  font-feature-settings: "zero" on, "tnum" on;
+}
+
+// Editorial Layout Mixins
+@mixin section-container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.25rem, 5vw, 4rem);
+  padding-right: clamp(1.25rem, 5vw, 4rem);
+}
+
+@mixin card-surface {
+  background-color: $color-bg-surface;
+  border: 1px solid $color-border;
+  transition: border-color $transition-smooth, background-color $transition-smooth;
+
+  &:hover {
+    border-color: rgba(197, 243, 107, 0.35);
+    background-color: $color-bg-surface-elevated;
+  }
+}
+
+@mixin subtle-grid-background {
+  background-image: 
+    linear-gradient(to right, rgba(48, 53, 45, 0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(48, 53, 45, 0.35) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $color-bg-primary;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-border;
+    border-radius: 0;
+    &:hover {
+      background: $color-accent-muted;
+    }
+  }
+}

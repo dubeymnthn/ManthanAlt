@@ -1,0 +1,282 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.footer {
+  border-top: 1px solid var(--border-color);
+  background-color: #0d0f0c;
+  position: relative;
+  z-index: 10;
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
+}
+
+.container {
+  @include section-container;
+}
+
+.telemetryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(48, 53, 45, 0.6);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.telemetryItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
+.label {
+  color: var(--text-tertiary);
+}
+
+.value {
+  color: var(--text-secondary);
+}
+
+.backToTopBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-primary);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  transition: all $transition-fast;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent-muted);
+    transform: translateY(-2px);
+  }
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.logoMark {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.author {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.tagline {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 440px;
+}
+
+.availabilityBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background-color: rgba(197, 243, 107, 0.06);
+  border: 1px solid rgba(197, 243, 107, 0.25);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  width: fit-content;
+}
+
+.pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+.linksCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.colTitle {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  margin-bottom: 1.25rem;
+}
+
+.linkList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.linkItem {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--text-primary);
+
+    .num {
+      color: var(--accent);
+    }
+  }
+}
+
+.num {
+  font-size: 0.6875rem;
+  color: var(--text-tertiary);
+}
+
+.connectCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.contactItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.contactType {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+}
+
+.emailLink {
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  word-break: break-all;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.socialButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.socialBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  transition: all $transition-fast;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent-muted);
+    background-color: var(--bg-surface-hover);
+  }
+}
+
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.motto {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.mottoHighlight {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.separator {
+  color: var(--border-color);
+}

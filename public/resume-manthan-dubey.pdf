@@ -1,0 +1,51 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >> endobj
+4 0 obj << /Length 500 >>
+stream
+BT
+/F1 18 Tf
+50 740 Td
+(MANTHAN DUBEY - Software Engineer) Tj
+/F1 11 Tf
+0 -24 Td
+(Email: manthandubey18@gmail.com | Location: India | GitHub: github.com/manthandubey) Tj
+0 -30 Td
+(SUMMARY) Tj
+0 -16 Td
+(Software Engineer working across frontend, backend, infrastructure and AI technologies.) Tj
+0 -30 Td
+(EXPERIENCE) Tj
+0 -16 Td
+(- Perfios: Associate Software Developer / Software Engineer) Tj
+0 -16 Td
+(- IBM / ObjectWin: Contract Software Developer on ANZ Bank digital banking platform) Tj
+0 -16 Td
+(- Karkinos Healthcare Pvt. Ltd.: Associate Software Developer (Dec 2022 - Jan 2025)) Tj
+0 -30 Td
+(PROJECTS) Tj
+0 -16 Td
+(- Wally Talky: Push-to-talk voice messaging (Flutter, Fastify, Socket.IO, PostgreSQL, Redis)) Tj
+0 -16 Td
+(- StoryForge AI: Multi-agent audio drama studio (React, TypeScript, Google Gemini, TTS)) Tj
+0 -16 Td
+(- Financial Data Automation: High-throughput parsing (Node.js, Python, MongoDB, Selenium)) Tj
+0 -16 Td
+(- MCP Token Server: Local token capture bridge utility (Node.js, Express, Chrome MV3)) Tj
+ET
+endstream
+endobj
+5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000227 00000 n 
+0000000780 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+850
+%%EOF

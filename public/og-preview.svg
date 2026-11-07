@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#111310"/>
+  
+  <!-- Subtle technical grid -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#191C18" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)" />
+  
+  <!-- Outer border -->
+  <rect x="30" y="30" width="1140" height="570" fill="none" stroke="#30352D" stroke-width="2"/>
+  
+  <!-- Top metadata row -->
+  <text x="70" y="80" fill="#C5F36B" font-family="monospace" font-size="16" letter-spacing="3">SOFTWARE ENGINEER / INDIA</text>
+  <text x="1000" y="80" fill="#999D92" font-family="monospace" font-size="16" letter-spacing="2">SYS: ONLINE</text>
+  <line x1="70" y1="100" x2="1130" y2="100" stroke="#30352D" stroke-width="1"/>
+  
+  <!-- Main Editorial Title -->
+  <text x="70" y="220" fill="#F1F0E8" font-family="sans-serif" font-weight="bold" font-size="64" letter-spacing="-1">MANTHAN DUBEY</text>
+  <text x="70" y="280" fill="#C5F36B" font-family="sans-serif" font-weight="600" font-size="32">Full-Stack Developer / Systems Architect</text>
+  
+  <text x="70" y="360" fill="#999D92" font-family="sans-serif" font-size="22">I build systems. I create products. I solve problems.</text>
+  <text x="70" y="400" fill="#6B7064" font-family="monospace" font-size="18">Node.js · TypeScript · React · Next.js · Flutter · PostgreSQL · Google Gemini AI · Three.js</text>
+  
+  <!-- Bottom technical footer -->
+  <line x1="70" y1="520" x2="1130" y2="520" stroke="#30352D" stroke-width="1"/>
+  <text x="70" y="560" fill="#F1F0E8" font-family="monospace" font-size="16" letter-spacing="2">DESIGNED WITH INTENT. BUILT WITH CODE.</text>
+  <text x="960" y="560" fill="#C5F36B" font-family="monospace" font-size="16">© 2026 MANTHAN DUBEY</text>
+</svg>
