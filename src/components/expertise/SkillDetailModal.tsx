@@ -21,7 +21,13 @@ export function SkillDetailModal({
   const relatedNodes = skillsData.filter((s) => skill.related.includes(s.id));
 
   return (
-    <div className={styles.detailDrawer} role="region" aria-label="Skill Detail Panel">
+    <div
+      className={styles.detailDrawer}
+      role="region"
+      aria-label="Skill Detail Panel"
+      data-lenis-prevent="true"
+      onWheel={(e) => e.stopPropagation()}
+    >
       <div className={styles.drawerHeader}>
         <div className={styles.drawerMeta}>
           <Tag size={13} className={styles.drawerIcon} />
@@ -42,7 +48,11 @@ export function SkillDetailModal({
         </button>
       </div>
 
-      <div className={styles.drawerBody}>
+      <div
+        className={styles.drawerBody}
+        data-lenis-prevent="true"
+        onWheel={(e) => e.stopPropagation()}
+      >
         <h4 className={styles.skillTitle}>{skill.name}</h4>
         <p className={styles.skillDesc}>{skill.description}</p>
 

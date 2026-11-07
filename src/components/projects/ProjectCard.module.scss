@@ -420,7 +420,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(0.75rem, 2.5vw, 1.5rem);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modalBackdrop {
@@ -429,23 +432,28 @@
   background-color: rgba(10, 12, 9, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  touch-action: none;
 }
 
 .modalContainer {
   position: relative;
   width: 100%;
   max-width: 980px;
-  max-height: 92vh;
+  height: auto;
+  max-height: calc(100dvh - 40px);
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  overscroll-behavior: contain;
   z-index: 10;
+  outline: none;
 }
 
 .modalHeader {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -454,6 +462,7 @@
   border-bottom: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
+  z-index: 2;
 }
 
 .modalMeta {
@@ -500,11 +509,17 @@
 }
 
 .modalBody {
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 2rem 2.25rem;
   overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
   gap: 2.25rem;
+  outline: none;
   @include custom-scrollbar;
 }
 
@@ -966,4 +981,41 @@
   height: 6px;
   border-radius: 50%;
   background-color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .modalOverlay {
+    padding: 0;
+  }
+
+  .modalContainer {
+    max-height: 100dvh;
+    height: 100dvh;
+    border: none;
+    border-radius: 0;
+  }
+
+  .modalHeader {
+    padding: 0.75rem 1rem;
+  }
+
+  .modalBody {
+    padding: 1.25rem 1rem 2.5rem 1rem;
+    gap: 1.5rem;
+  }
+
+  .modalTitle {
+    font-size: 1.75rem;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modalPrimaryLink,
+  .modalSecondaryLink {
+    justify-content: center;
+    width: 100%;
+  }
 }

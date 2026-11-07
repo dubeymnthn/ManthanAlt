@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import {
   X,
   ArrowUpRight,
@@ -18,6 +18,7 @@ import {
 import styles from "./ProjectCard.module.scss";
 import { Project } from "@/data/projects";
 import { soundManager } from "@/lib/sound";
+import { lockScroll, unlockScroll } from "@/lib/scrollLock";
 import { ProjectArchitectureDiagram } from "./ProjectArchitectureDiagram";
 
 interface ProjectCaseStudyModalProps {
@@ -27,34 +28,107 @@ interface ProjectCaseStudyModalProps {
 
 export function ProjectCaseStudyModal({ project, onClose }: ProjectCaseStudyModalProps) {
   const [deepDiveOpen, setDeepDiveOpen] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
+  // Synchronous lock and unlock lifecycle
   useEffect(() => {
     if (!project) return;
 
+    // 1. Lock background document scroll & pause Lenis
+    lockScroll();
+
+    // 2. Focus modal dialog for immediate keyboard and screen reader accessibility
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const focusTimer = setTimeout(() => {
+      containerRef.current?.focus();
+    }, 10);
+
+    // 3. Complete keyboard scrolling and escape handlers
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        e.preventDefault();
         soundManager.playClick();
         onClose();
+        return;
+      }
+
+      const body = bodyRef.current;
+      if (!body) return;
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        body.scrollBy({ top: 80, behavior: "smooth" });
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        body.scrollBy({ top: -80, behavior: "smooth" });
+      } else if (e.key === "PageDown" || (e.key === " " && !e.shiftKey)) {
+        e.preventDefault();
+        body.scrollBy({ top: body.clientHeight * 0.85, behavior: "smooth" });
+      } else if (e.key === "PageUp" || (e.key === " " && e.shiftKey)) {
+        e.preventDefault();
+        body.scrollBy({ top: -body.clientHeight * 0.85, behavior: "smooth" });
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        body.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (e.key === "End") {
+        e.preventDefault();
+        body.scrollTo({ top: body.scrollHeight, behavior: "smooth" });
       }
     };
 
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keydown", onKeyDown, { passive: false });
 
     return () => {
-      document.body.style.overflow = "";
+      clearTimeout(focusTimer);
+      unlockScroll();
       window.removeEventListener("keydown", onKeyDown);
+      previouslyFocused?.focus();
     };
   }, [project, onClose]);
+
+  // Forward wheel events anywhere inside container to body
+  const handleContainerWheel = useCallback((e: React.WheelEvent) => {
+    e.stopPropagation();
+    const body = bodyRef.current;
+    if (body && !body.contains(e.target as Node)) {
+      body.scrollTop += e.deltaY;
+    }
+  }, []);
 
   if (!project) return null;
 
   return (
-    <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div className={styles.modalBackdrop} onClick={onClose} />
+    <div
+      className={styles.modalOverlay}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      data-lenis-prevent="true"
+      onWheel={(e) => e.stopPropagation()}
+    >
+      {/* Backdrop with click-to-close and touch/wheel isolation */}
+      <div
+        className={styles.modalBackdrop}
+        onClick={onClose}
+        onWheel={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        }}
+        onTouchMove={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
+        }}
+      />
 
-      <div className={styles.modalContainer}>
-        {/* Modal Top Bar */}
+      <div
+        ref={containerRef}
+        className={styles.modalContainer}
+        tabIndex={-1}
+        data-lenis-prevent="true"
+        onWheel={handleContainerWheel}
+      >
+        {/* Modal Top Bar (Fixed / Sticky Header) */}
         <div className={styles.modalHeader}>
           <div className={styles.modalMeta}>
             <span className={styles.modalIndex}>{project.index}</span>
@@ -77,8 +151,16 @@ export function ProjectCaseStudyModal({ project, onClose }: ProjectCaseStudyModa
           </button>
         </div>
 
-        {/* Modal Body */}
-        <div className={styles.modalBody}>
+        {/* Modal Scrollable Content Body */}
+        <div
+          ref={bodyRef}
+          className={styles.modalBody}
+          tabIndex={0}
+          role="region"
+          aria-label={`${project.title} detailed documentation`}
+          data-lenis-prevent="true"
+          onWheel={(e) => e.stopPropagation()}
+        >
           {/* Project Introduction */}
           <div className={styles.modalIntro}>
             <h3 id="modal-title" className={styles.modalTitle}>
@@ -148,7 +230,7 @@ export function ProjectCaseStudyModal({ project, onClose }: ProjectCaseStudyModa
             </div>
           </div>
 
-          {/* Level 3: Expandable Technical Deep Dive (For complex architectures) */}
+          {/* Technical Deep Dive */}
           {project.deepDive && (
             <div className={styles.deepDiveContainer}>
               <div
