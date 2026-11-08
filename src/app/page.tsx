@@ -8,6 +8,7 @@ import { SkillsExplorer } from "@/components/expertise/SkillsExplorer";
 import { ExperienceTimeline } from "@/components/experience/ExperienceTimeline";
 import { AboutSection } from "@/components/about/AboutSection";
 import { ExperimentsSection } from "@/components/experiments/ExperimentsSection";
+import { FetchGame } from "@/components/fetch-game/FetchGame";
 import { ContactSection } from "@/components/contact/ContactSection";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
         <ExperienceTimeline />
         <AboutSection />
         <ExperimentsSection />
+        <FetchGame />
         <ContactSection />
       </main>
       <Footer />

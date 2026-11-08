@@ -46,7 +46,7 @@ export function Navbar() {
       return;
     }
 
-    const sectionIds = ["work", "expertise", "experience", "about", "experiments", "contact"];
+    const sectionIds = ["work", "expertise", "experience", "about", "experiments", "fetch-game", "contact"];
     const sectionElements = sectionIds
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
