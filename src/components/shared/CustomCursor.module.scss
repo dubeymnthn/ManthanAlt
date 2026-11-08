@@ -14,7 +14,7 @@
   will-change: transform;
 
   &.hovering {
-    background-color: #ffffff;
+    background-color: var(--cursor-dot-active);
     transform: translate3d(-50%, -50%, 0) scale(1.5);
   }
 }
@@ -27,7 +27,7 @@
   height: 32px;
   margin-top: -16px;
   margin-left: -16px;
-  border: 1px solid rgba(197, 243, 107, 0.45);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9997;
@@ -40,7 +40,7 @@
     margin-top: -24px;
     margin-left: -24px;
     border-color: var(--accent);
-    background-color: rgba(197, 243, 107, 0.06);
+    background-color: color-mix(in srgb, var(--accent) 6%, transparent);
   }
 }
 

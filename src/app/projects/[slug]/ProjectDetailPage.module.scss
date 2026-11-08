@@ -308,7 +308,7 @@
   border: 1px solid var(--border-color);
   border-radius: 4px;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: var(--color-surface);
 }
 
 .diagramCaption {
@@ -466,8 +466,8 @@
 // Code Highlight Box
 .codeHighlightBox {
   margin-top: 1.5rem;
-  background-color: #17211b;
-  color: #f7f8f3;
+  background-color: var(--code-bg);
+  color: var(--code-ink);
   border: 1px solid var(--border-color);
   padding: 1.25rem;
   font-family: var(--font-ibm-plex-mono), monospace;
@@ -479,15 +479,15 @@
   justify-content: space-between;
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--code-rule);
   font-size: 0.75rem;
-  color: #b7db72;
+  color: var(--code-accent);
 }
 
 .codeDesc {
   font-size: 0.8125rem;
   line-height: 1.6;
-  color: #c9d5cb;
+  color: var(--code-muted);
 }
 
 // Sidebar Widgets
@@ -571,7 +571,7 @@
   &:hover {
     border-color: var(--accent-muted);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-hover);
 
     .adjacentTitle {
       color: var(--accent-muted);
@@ -615,7 +615,7 @@
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
   background-color: var(--text-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.8125rem;
   font-weight: 600;

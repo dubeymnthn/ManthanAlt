@@ -4,6 +4,7 @@ import { useRef, useState, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { soundManager } from "@/lib/sound";
+import { THEME_PALETTE, useResolvedTheme, type ThemeName } from "@/lib/theme";
 
 interface ModuleData {
   id: string;
@@ -26,6 +27,86 @@ const MODULES: ModuleData[] = [
   { id: "mod-06", name: "STATE_REGISTRY", type: "processor", position: [-0.6, -1.9, 0.3], size: [0.5, 0.5, 0.5] },
 ];
 
+interface NodeLook {
+  color: string;
+  emissive: string;
+  emissiveIntensity: number;
+  edge: string;
+  edgeOpacity: number;
+}
+
+interface CorePalette {
+  ambientIntensity: number;
+  keyLight: string;
+  keyIntensity: number;
+  rimLight: string;
+  rimIntensity: number;
+  coreGlow: string;
+  coreGlowIntensity: number;
+  links: string;
+  linksOpacity: number;
+  rings: [string, number][];
+  particles: string;
+  particlesOpacity: number;
+  module: NodeLook;
+  core: NodeLook;
+  hovered: NodeLook;
+}
+
+const LIGHT = THEME_PALETTE.light;
+const DARK = THEME_PALETTE.dark;
+
+/**
+ * Day: machined white modules around a dark ink kernel. Night: dark modules on the
+ * night surface with chartreuse edges, a glowing kernel and phosphor-like particles.
+ * Colors are plain material props, so R3F updates the existing materials and lights
+ * in place when the theme flips (no remount, no per-frame work).
+ */
+const CORE_PALETTES: Record<ThemeName, CorePalette> = {
+  light: {
+    ambientIntensity: 0.75,
+    keyLight: "#FFFFFF",
+    keyIntensity: 1.4,
+    rimLight: LIGHT.accentStrong,
+    rimIntensity: 0.6,
+    coreGlow: LIGHT.accentStrong,
+    coreGlowIntensity: 1.2,
+    links: LIGHT.accentStrong,
+    linksOpacity: 0.4,
+    rings: [
+      [LIGHT.accentStrong, 0.35],
+      [LIGHT.primary, 0.25],
+      [LIGHT.border, 0.6],
+    ],
+    particles: LIGHT.accentStrong,
+    particlesOpacity: 0.65,
+    module: { color: LIGHT.surface, emissive: LIGHT.surfaceMuted, emissiveIntensity: 0.15, edge: LIGHT.accentStrong, edgeOpacity: 0.65 },
+    core: { color: LIGHT.primary, emissive: LIGHT.primary, emissiveIntensity: 0.15, edge: LIGHT.accentStrong, edgeOpacity: 0.65 },
+    hovered: { color: LIGHT.accent, emissive: LIGHT.accentStrong, emissiveIntensity: 0.6, edge: LIGHT.primary, edgeOpacity: 1 },
+  },
+  dark: {
+    ambientIntensity: 0.4,
+    keyLight: DARK.primary,
+    keyIntensity: 1.1,
+    rimLight: DARK.accent,
+    rimIntensity: 0.9,
+    coreGlow: DARK.accent,
+    coreGlowIntensity: 1.8,
+    links: DARK.accent,
+    linksOpacity: 0.32,
+    rings: [
+      [DARK.accent, 0.4],
+      [DARK.primary, 0.12],
+      [DARK.border, 0.9],
+    ],
+    particles: DARK.accentStrong,
+    particlesOpacity: 0.7,
+    module: { color: DARK.surfaceMuted, emissive: DARK.darkSection, emissiveIntensity: 0.35, edge: DARK.accent, edgeOpacity: 0.75 },
+    core: { color: DARK.darkSection, emissive: DARK.accent, emissiveIntensity: 0.35, edge: DARK.accentStrong, edgeOpacity: 0.9 },
+    hovered: { color: DARK.accentStrong, emissive: DARK.accent, emissiveIntensity: 0.7, edge: DARK.primary, edgeOpacity: 1 },
+  },
+};
+
 export function SystemsCore3D({
   onHoverModule,
 }: {
@@ -39,6 +120,7 @@ export function SystemsCore3D({
 
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const { pointer } = useThree();
+  const palette = CORE_PALETTES[useResolvedTheme()];
 
   // Create subtle connection lines between modules and the core
   const lineGeometry = useMemo(() => {
@@ -80,6 +162,17 @@ export function SystemsCore3D({
     return geom;
   }, []);
 
+  // Source shapes for the wireframe outlines, created once (previously rebuilt on every render).
+  const edgeSources = useMemo(
+    () =>
+      MODULES.map((mod) =>
+        mod.id === "core-alpha"
+          ? new THREE.OctahedronGeometry(0.855, 0)
+          : new THREE.BoxGeometry(mod.size[0] + 0.015, mod.size[1] + 0.015, mod.size[2] + 0.015)
+      ),
+    []
+  );
+
   // Animation frame loop with smooth dampening
   useFrame((state, delta) => {
     if (groupRef.current) {
@@ -119,40 +212,41 @@ export function SystemsCore3D({
 
   return (
     <group ref={groupRef}>
-      {/* Ambient and Specular Lighting tuned for Light Editorial surfaces */}
-      <ambientLight intensity={0.75} />
-      <directionalLight position={[6, 8, 5]} intensity={1.4} color="#ffffff" />
-      <directionalLight position={[-6, -4, -4]} intensity={0.6} color="#72953F" />
-      <pointLight position={[0, 0, 0]} intensity={1.2} color="#72953F" distance={4} />
+      {/* Lighting: bright editorial key by day; dim key with chartreuse rim and core glow by night */}
+      <ambientLight intensity={palette.ambientIntensity} />
+      <directionalLight position={[6, 8, 5]} intensity={palette.keyIntensity} color={palette.keyLight} />
+      <directionalLight position={[-6, -4, -4]} intensity={palette.rimIntensity} color={palette.rimLight} />
+      <pointLight position={[0, 0, 0]} intensity={palette.coreGlowIntensity} color={palette.coreGlow} distance={4} />
 
       {/* Interconnecting Wireframe Guides */}
       <lineSegments geometry={lineGeometry}>
-        <lineBasicMaterial color="#72953F" opacity={0.4} transparent depthWrite={false} />
+        <lineBasicMaterial color={palette.links} opacity={palette.linksOpacity} transparent depthWrite={false} />
       </lineSegments>
 
       {/* Floating Orbital Rings */}
       <mesh ref={ringRef1} rotation={[Math.PI / 4, 0, 0]}>
         <torusGeometry args={[2.4, 0.012, 16, 80]} />
-        <meshBasicMaterial color="#72953F" opacity={0.35} transparent />
+        <meshBasicMaterial color={palette.rings[0][0]} opacity={palette.rings[0][1]} transparent />
       </mesh>
       <mesh ref={ringRef2} rotation={[-Math.PI / 3, Math.PI / 6, 0]}>
         <torusGeometry args={[2.7, 0.009, 16, 80]} />
-        <meshBasicMaterial color="#1D2921" opacity={0.25} transparent />
+        <meshBasicMaterial color={palette.rings[1][0]} opacity={palette.rings[1][1]} transparent />
       </mesh>
       <mesh ref={ringRef3} rotation={[Math.PI / 6, -Math.PI / 4, 0]}>
         <torusGeometry args={[3.0, 0.007, 16, 80]} />
-        <meshBasicMaterial color="#DDE4D9" opacity={0.6} transparent />
+        <meshBasicMaterial color={palette.rings[2][0]} opacity={palette.rings[2][1]} transparent />
       </mesh>
 
       {/* Floating Particles (Data Packets) */}
       <points ref={particlesRef} geometry={particles}>
-        <pointsMaterial size={0.035} color="#72953F" transparent opacity={0.65} sizeAttenuation />
+        <pointsMaterial size={0.035} color={palette.particles} transparent opacity={palette.particlesOpacity} sizeAttenuation />
       </points>
 
       {/* Modules */}
-      {MODULES.map((mod) => {
+      {MODULES.map((mod, index) => {
         const isHovered = hoveredId === mod.id;
         const isCore = mod.id === "core-alpha";
+        const look = isHovered ? palette.hovered : isCore ? palette.core : palette.module;
 
         return (
           <group
@@ -172,32 +266,18 @@ export function SystemsCore3D({
                 <boxGeometry args={mod.size} />
               )}
               <meshStandardMaterial
-                color={isHovered ? "#B7DB72" : isCore ? "#1D2921" : "#FFFFFF"}
+                color={look.color}
                 metalness={0.3}
                 roughness={0.35}
-                emissive={isHovered ? "#72953F" : isCore ? "#1D2921" : "#EEF2E9"}
-                emissiveIntensity={isHovered ? 0.6 : 0.15}
+                emissive={look.emissive}
+                emissiveIntensity={look.emissiveIntensity}
               />
             </mesh>
 
             {/* Wireframe Outline for Architectural Technical Aesthetic */}
             <lineSegments>
-              <edgesGeometry
-                args={[
-                  isCore
-                    ? new THREE.OctahedronGeometry(0.855, 0)
-                    : new THREE.BoxGeometry(
-                        mod.size[0] + 0.015,
-                        mod.size[1] + 0.015,
-                        mod.size[2] + 0.015
-                      ),
-                ]}
-              />
-              <lineBasicMaterial
-                color={isHovered ? "#1D2921" : isCore ? "#72953F" : "#72953F"}
-                opacity={isHovered ? 1 : 0.65}
-                transparent
-              />
+              <edgesGeometry args={[edgeSources[index]]} />
+              <lineBasicMaterial color={look.edge} opacity={look.edgeOpacity} transparent />
             </lineSegments>
           </group>
         );

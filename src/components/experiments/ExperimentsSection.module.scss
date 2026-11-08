@@ -84,15 +84,15 @@
 }
 
 .statusBenchmarked {
-  color: #38bdf8;
+  color: var(--color-info);
 }
 
 .statusShipped {
-  color: #72953F;
+  color: var(--accent-muted);
 }
 
 .statusExploration {
-  color: #fbbf24;
+  color: var(--color-caution);
 }
 
 .cardTitle {
@@ -121,7 +121,7 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.35rem 0.65rem;
-  background-color: rgba(29, 41, 33, 0.95);
+  background-color: var(--code-bar);
   border-bottom: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.5625rem;
@@ -130,14 +130,14 @@
 }
 
 .termIcon {
-  color: #B7DB72;
+  color: var(--code-accent);
 }
 
 .terminalText {
   padding: 0.65rem 0.75rem;
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
-  color: #B7DB72;
+  color: var(--code-accent);
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-all;
@@ -145,7 +145,7 @@
 
 .findingsBox {
   padding: 0.65rem 0.85rem;
-  background-color: rgba(114, 149, 63, 0.08);
+  background-color: color-mix(in srgb, var(--accent-muted) 8%, transparent);
   border-left: 2px solid var(--accent-muted);
   display: flex;
   flex-direction: column;

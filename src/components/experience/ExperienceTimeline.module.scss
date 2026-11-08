@@ -25,7 +25,7 @@
 
   &:hover {
     border-color: var(--accent-muted);
-    box-shadow: 0 8px 24px rgba(29, 41, 33, 0.05);
+    box-shadow: var(--shadow-hover);
   }
 
   &.cardActive {

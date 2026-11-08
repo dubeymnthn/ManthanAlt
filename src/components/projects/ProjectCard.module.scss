@@ -12,7 +12,7 @@
   &:hover {
     border-color: var(--accent-muted);
     background-color: var(--bg-surface);
-    box-shadow: 0 12px 32px rgba(29, 41, 33, 0.06);
+    box-shadow: var(--shadow-raised);
   }
 }
 
@@ -187,7 +187,7 @@
   gap: 0.5rem;
   padding: 0.75rem 1.35rem;
   background-color: var(--color-primary);
-  color: #FFFFFF;
+  color: var(--color-on-primary);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
   font-weight: 700;
@@ -265,6 +265,12 @@
   width: 100%;
   height: auto;
   display: block;
+
+  // Colors come from the theme-aware palette in ProjectArchitectureDiagram.tsx (style props);
+  // the font lives here because SVG presentation attributes cannot resolve var().
+  text {
+    font-family: $font-mono;
+  }
 }
 
 .diagramFooter {
@@ -283,7 +289,7 @@
 .diagramHoverOverlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(247, 248, 243, 0.85);
+  background-color: var(--background-glass);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -300,7 +306,7 @@
   color: var(--text-primary);
   padding: 0.5rem 1rem;
   border: 1px solid var(--border-color);
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
 }
 
 // Compact Card (For Additional Projects Directory)
@@ -318,7 +324,7 @@
     border-color: var(--accent-muted);
     background-color: var(--bg-surface-elevated);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(29, 41, 33, 0.05);
+    box-shadow: var(--shadow-hover);
 
     .compactTitle {
       color: var(--accent-muted);
@@ -432,7 +438,7 @@
 .modalBackdrop {
   position: absolute;
   inset: 0;
-  background-color: rgba(29, 41, 33, 0.45);
+  background-color: var(--overlay-scrim);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   touch-action: none;
@@ -446,7 +452,7 @@
   max-height: calc(100dvh - 40px);
   background-color: var(--color-surface);
   border: 1px solid var(--border-color);
-  box-shadow: 0 25px 60px rgba(29, 41, 33, 0.2);
+  box-shadow: var(--shadow-modal);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -502,7 +508,7 @@
   letter-spacing: 0.08em;
   padding: 0.35rem 0.75rem;
   border: 1px solid var(--border-color);
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   transition: all $transition-fast;
 
   &:hover {
@@ -571,7 +577,7 @@
 
 .metaPillStatus {
   padding: 0.25rem 0.75rem;
-  background-color: rgba(114, 149, 63, 0.1);
+  background-color: color-mix(in srgb, var(--accent-muted) 10%, transparent);
   border: 1px solid var(--accent-muted);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.6875rem;
@@ -675,7 +681,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   border-bottom: 1px solid var(--border-color);
   cursor: pointer;
 }
@@ -752,13 +758,13 @@
 .codeFilename {
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
-  color: #B7DB72;
+  color: var(--code-accent);
   font-weight: 700;
 }
 
 .codeDesc {
   font-size: 0.8125rem;
-  color: #CBD5E1;
+  color: var(--code-muted);
 }
 
 .flowList {
@@ -772,7 +778,7 @@
   align-items: baseline;
   gap: 1rem;
   padding: 0.85rem 1rem;
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   border: 1px solid var(--border-color);
 }
 
@@ -800,7 +806,7 @@
 }
 
 .componentCard {
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   border: 1px solid var(--border-color);
   padding: 1rem 1.25rem;
   display: flex;
@@ -842,7 +848,7 @@
 }
 
 .challengeCard {
-  background-color: #FFFFFF;
+  background-color: var(--color-surface);
   border: 1px solid var(--border-color);
   padding: 1.25rem;
   display: flex;
@@ -857,7 +863,7 @@
 }
 
 .chIconAlert {
-  color: #ff9800;
+  color: var(--color-warning);
 }
 
 .chTitle {
@@ -875,7 +881,7 @@
 .chSolution {
   margin-top: 0.5rem;
   padding: 0.85rem 1rem;
-  background-color: rgba(114, 149, 63, 0.08);
+  background-color: color-mix(in srgb, var(--accent-muted) 8%, transparent);
   border-left: 3px solid var(--accent-muted);
   display: flex;
   flex-direction: column;
@@ -934,7 +940,7 @@
   gap: 0.5rem;
   padding: 0.85rem 1.5rem;
   background-color: var(--color-primary);
-  color: #FFFFFF;
+  color: var(--color-on-primary);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.8125rem;
   font-weight: 700;

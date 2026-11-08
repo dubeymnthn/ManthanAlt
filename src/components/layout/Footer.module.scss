@@ -7,7 +7,11 @@
   position: relative;
   z-index: 10;
   padding-top: 2rem;
-  padding-bottom: 2.5rem;
+  padding-bottom: calc(2.5rem + 80px);
+
+  @include mobile {
+    padding-bottom: calc(2rem + 60px);
+  }
 }
 
 .container {
@@ -132,7 +136,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 0.75rem;
-  background-color: rgba(114, 149, 63, 0.08);
+  background-color: color-mix(in srgb, var(--accent-muted) 8%, transparent);
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;

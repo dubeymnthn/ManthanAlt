@@ -52,7 +52,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #e5484d;
+  background-color: var(--color-danger);
 }
 
 .errorCode {
@@ -96,7 +96,7 @@
   gap: 0.5rem;
   padding: 0.875rem 1.5rem;
   background-color: var(--text-primary);
-  color: var(--bg-surface);
+  color: var(--color-on-primary);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.8125rem;
   font-weight: 600;
@@ -107,7 +107,7 @@
   &:hover {
     background-color: var(--accent-muted);
     border-color: var(--accent-muted);
-    color: #ffffff;
+    color: var(--color-on-primary);
   }
 }
 
@@ -134,6 +134,10 @@
 .quickLinksSection {
   border-top: 1px solid var(--border-color);
   padding-top: 2rem;
+
+  & + & {
+    margin-top: 2rem;
+  }
 }
 
 .quickLinksTitle {

@@ -50,7 +50,7 @@ export function ContactSection() {
     <section className={styles.section} id="contact" aria-label="Contact">
       <div className={styles.container}>
         <SectionHeading
-          index="08"
+          index="07"
           tag="CONTACT"
           title={personalData.contactHeadline}
           subtitle={personalData.contactSubtext}

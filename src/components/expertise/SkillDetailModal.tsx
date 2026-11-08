@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { X, ArrowRight, Layers, Tag, FolderGit2, ExternalLink } from "lucide-react";
 import styles from "./SkillsExplorer.module.scss";
 import { SkillNode, skillsData } from "@/data/skills";
@@ -65,9 +66,9 @@ export function SkillDetailModal({
             </span>
             <div className={styles.projectRefPills}>
               {skill.usedInProjects.map((p) => (
-                <a
+                <Link
                   key={p.id}
-                  href="#work"
+                  href="/work"
                   className={styles.projectRefBtn}
                   onClick={() => {
                     soundManager.playClick();
@@ -78,7 +79,7 @@ export function SkillDetailModal({
                   <FolderGit2 size={11} className={styles.projectRefIcon} />
                   <span>{p.title}</span>
                   <ExternalLink size={10} className={styles.projectRefArrow} />
-                </a>
+                </Link>
               ))}
             </div>
           </div>

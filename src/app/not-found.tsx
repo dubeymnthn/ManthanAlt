@@ -3,8 +3,22 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import styles from "./not-found.module.scss";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { navItems } from "@/data/navigation";
+import { getProjectBySlug, projectsData } from "@/data/projects";
+
+/** Quick links to notable case studies; indices come from the project registry so they never drift. */
+const quickProjectLinks = [
+  { slug: "wally-talky", label: "WALLY TALKY" },
+  { slug: "storyforge-ai", label: "STORYFORGE AI" },
+  { slug: "dravyam", label: "DRAVYAM" },
+  { slug: "ride-aggregator", label: "RIDE AGGREGATOR" },
+  { slug: "financial-data-scraper", label: "FINANCIAL SCRAPER" },
+  { slug: "ai-diary", label: "AI DIARY" },
+];
 
 export default function NotFound() {
+  const projectCount = projectsData.length;
+
   return (
     <div className={styles.notFoundWrapper}>
       <Navbar />
@@ -19,12 +33,12 @@ export default function NotFound() {
           <h2 className={styles.errorTitle}>Requested Route Not Found</h2>
           <p className={styles.errorDesc}>
             The system address or project identifier you requested does not exist in the active registry.
-            All 11 completed engineering projects are indexed on the main portfolio ledger.
+            All {projectCount} completed engineering projects are indexed in the work registry.
           </p>
 
           <div className={styles.actionRow}>
-            <Link href="/#work" className={styles.ctaPrimary}>
-              <span>EXPLORE 11 COMPLETED PROJECTS</span>
+            <Link href="/work" className={styles.ctaPrimary}>
+              <span>EXPLORE {projectCount} COMPLETED PROJECTS</span>
               <ArrowUpRight size={14} />
             </Link>
             <Link href="/" className={styles.ctaSecondary}>
@@ -33,35 +47,39 @@ export default function NotFound() {
             </Link>
           </div>
 
-          <div className={styles.quickLinksSection}>
+          <nav className={styles.quickLinksSection} aria-label="Project case studies">
+            <p className={styles.quickLinksTitle}>PROJECT REGISTRY</p>
+            <ul className={styles.linksList}>
+              {quickProjectLinks.map(({ slug, label }) => {
+                const project = getProjectBySlug(slug);
+                if (!project) return null;
+
+                return (
+                  <li key={project.slug}>
+                    <Link href={`/projects/${project.slug}`}>
+                      {project.index} {"//"} {label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <nav
+            className={styles.quickLinksSection}
+            aria-label="Portfolio sections"
+          >
             <p className={styles.quickLinksTitle}>SYSTEM NAVIGATION INDEX</p>
             <ul className={styles.linksList}>
-              <li>
-                <Link href="/projects/wally-talky">01 // WALLY TALKY</Link>
-              </li>
-              <li>
-                <Link href="/projects/storyforge-ai">02 // STORYFORGE AI</Link>
-              </li>
-              <li>
-                <Link href="/projects/dravyam">03 // DRAVYAM</Link>
-              </li>
-              <li>
-                <Link href="/projects/ride-aggregator">04 // RIDE AGGREGATOR</Link>
-              </li>
-              <li>
-                <Link href="/projects/financial-data-scraper">05 // FINANCIAL SCRAPER</Link>
-              </li>
-              <li>
-                <Link href="/projects/ai-diary">07 // AI DIARY</Link>
-              </li>
-              <li>
-                <Link href="/#expertise">08 // EXPERTISE</Link>
-              </li>
-              <li>
-                <Link href="/#contact">09 // CONTACT</Link>
-              </li>
+              {navItems.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href}>
+                    {item.index} {"//"} {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
-          </div>
+          </nav>
         </div>
       </main>
       <Footer />

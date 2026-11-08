@@ -1,41 +1,176 @@
 @use "../styles/variables" as *;
 @use "../styles/mixins" as *;
 
+// ==============================================================================
+// THEME TOKENS
+// Day ("light editorial") is the default on :root. Night ("night editorial") redefines
+// the same custom-property names under :root[data-theme="dark"]; the attribute is set
+// before first paint from the visitor's local time or their manual choice
+// (see src/lib/theme.ts). Modules must use these tokens, never raw colors; for
+// translucent variants use color-mix(in srgb, var(--token) N%, transparent).
+// The 3D scenes mirror the core palette in THEME_PALETTE (src/lib/theme.ts).
+// ==============================================================================
+
 :root {
-  // New Light Editorial System Tokens
-  --color-background: #F7F8F3;
+  color-scheme: light;
+
+  // Core palette
+  --color-background: #F7F8F3;      // warm ivory
   --color-surface: #FFFFFF;
   --color-surface-muted: #EEF2E9;
   --color-surface-hover: #E7ECE3;
-  --color-primary: #1D2921;
-  --color-secondary: #647267;
-  --color-tertiary: #8A968C;
-  --color-accent: #B7DB72;
-  --color-accent-dark: #72953F;
+  --color-primary: #1D2921;         // forest ink
+  --color-secondary: #647267;       // sage body copy
+  --color-tertiary: #8A968C;        // technical labels
+  --color-accent: #B7DB72;          // chartreuse
+  --color-accent-dark: #72953F;     // readable accent text & active states
   --color-border: #DDE4D9;
   --color-grid: #E7ECE3;
-  --color-dark-section: #233229;
+  --color-dark-section: #233229;    // deep contrast surface (terminals, callouts)
 
-  // Semantic Aliases
-  --bg-primary: #F7F8F3;
-  --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #EEF2E9;
-  --bg-surface-hover: #E7ECE3;
+  // Content on filled controls
+  --color-on-primary: #FFFFFF;      // text/icons on --color-primary fills (ink buttons, active pills)
+  --color-on-accent: #1D2921;       // text/icons on --color-accent fills
+  --accent-hover: #D7FF85;          // hovered chartreuse fill
 
-  --text-primary: #1D2921;
-  --text-secondary: #647267;
-  --text-tertiary: #8A968C;
+  // Status
+  --color-danger: #E5484D;
+  --color-warning: #FF9800;
+  --color-info: #38BDF8;
+  --color-caution: #FBBF24;
 
-  --accent: #B7DB72;
-  --accent-muted: #72953F;
+  // Tints & lines
   --accent-subtle: rgba(183, 219, 114, 0.22);
   --accent-glow: rgba(183, 219, 114, 0.45);
-
-  --border-color: #DDE4D9;
   --border-light: rgba(29, 41, 33, 0.08);
   --border-accent: rgba(114, 149, 63, 0.45);
+  --grid-line: rgba(221, 228, 217, 0.45);
+  --grid-line-strong: rgba(221, 228, 217, 0.75);
+
+  // Overlays & fields
+  --overlay-scrim: rgba(29, 41, 33, 0.45);   // modal backdrop
+  --input-bg: #FFFFFF;
+
+  // Code / terminal blocks (dark in both themes)
+  --code-bg: #17211B;
+  --code-bar: rgba(29, 41, 33, 0.95);
+  --code-ink: #F7F8F3;
+  --code-accent: #B7DB72;
+  --code-muted: #C9D5CB;
+  --code-rule: rgba(255, 255, 255, 0.1);
+
+  // Custom cursor
+  --cursor-dot-active: #FFFFFF;
+
+  // Elevation
+  --shadow-rest: 0 4px 20px rgba(29, 41, 33, 0.03);
+  --shadow-hover: 0 8px 24px rgba(29, 41, 33, 0.05);
+  --shadow-raised: 0 12px 32px rgba(29, 41, 33, 0.06);
+  --shadow-float: 0 16px 36px rgba(29, 41, 33, 0.08);
+  --shadow-popover: 0 16px 36px rgba(29, 41, 33, 0.12);
+  --shadow-modal: 0 25px 60px rgba(29, 41, 33, 0.2);
+  --shadow-label: 0 2px 8px rgba(29, 41, 33, 0.08);
+
+  // Illustration helpers: soft ground/contact shadows (SVG fills) and dotted textures
+  --contact-shadow: rgba(29, 41, 33, 0.12);
+  --contact-shadow-strong: rgba(29, 41, 33, 0.18);
+  --dot-grid: rgba(29, 41, 33, 0.04);
+
+  // ---- Derived tokens: computed from the palette above, so they follow the theme
+  // automatically and are intentionally not repeated in the dark block. ----
+
+  // Semantic aliases
+  --bg-primary: var(--color-background);
+  --bg-surface: var(--color-surface);
+  --bg-surface-elevated: var(--color-surface-muted);
+  --bg-surface-muted: var(--color-surface-muted);
+  --bg-surface-hover: var(--color-surface-hover);
+
+  --text-primary: var(--color-primary);
+  --text-secondary: var(--color-secondary);
+  --text-tertiary: var(--color-tertiary);
+
+  --accent: var(--color-accent);
+  --accent-muted: var(--color-accent-dark);
+
+  --border-color: var(--color-border);
+
+  // Frosted glass (navbar, drawers, HUD overlays)
+  --nav-glass: color-mix(in srgb, var(--color-background) 92%, transparent);
+  --nav-glass-strong: color-mix(in srgb, var(--color-background) 98%, transparent);
+  --background-glass: color-mix(in srgb, var(--color-background) 85%, transparent);
+  --surface-glass: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  --surface-glass-strong: color-mix(in srgb, var(--color-surface) 96%, transparent);
 
   --nav-height: 72px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  // Core palette: deep forest night, lifted surfaces, warm off-white ink.
+  // WCAG (on background / surface / muted): primary 15.4 / 14.4 / 13.2,
+  // secondary 8.2 / 7.6 / 7.0, tertiary 5.8 / 5.4 / 5.0, accent text 13.0 / 12.1 / 11.1.
+  --color-background: #0F1512;
+  --color-surface: #151D18;
+  --color-surface-muted: #1B2520;
+  --color-surface-hover: #212C25;
+  --color-primary: #E7ECE4;
+  --color-secondary: #A3B0A6;
+  --color-tertiary: #86948B;
+  --color-accent: #B7DB72;
+  --color-accent-dark: #C5E38A;     // lighter chartreuse so accent text stays readable
+  --color-border: #2A362E;
+  --color-grid: #19221D;
+  --color-dark-section: #233229;    // lifted forest panel (1.37:1 vs background)
+
+  // Content on filled controls
+  --color-on-primary: #0F1512;
+  --color-on-accent: #0F1512;
+  --accent-hover: #CFEA97;
+
+  // Status
+  --color-danger: #FF6B6F;
+  --color-warning: #FFB547;
+  --color-info: #6CCFF6;
+  --color-caution: #FBCB4A;
+
+  // Tints & lines
+  --accent-subtle: rgba(183, 219, 114, 0.14);
+  --accent-glow: rgba(183, 219, 114, 0.35);
+  --border-light: rgba(231, 236, 228, 0.08);
+  --border-accent: rgba(197, 227, 138, 0.4);
+  --grid-line: rgba(42, 54, 46, 0.5);
+  --grid-line-strong: rgba(42, 54, 46, 0.8);
+
+  // Overlays & fields
+  --overlay-scrim: rgba(5, 8, 6, 0.7);
+  --input-bg: #111814;
+
+  // Code / terminal blocks
+  --code-bg: #1D2A22;
+  --code-bar: #18231C;
+  --code-ink: #E7ECE4;
+  --code-accent: #B7DB72;
+  --code-muted: #B9C6BC;
+  --code-rule: rgba(231, 236, 228, 0.1);
+
+  // Custom cursor
+  --cursor-dot-active: #E7ECE4;
+
+  // Elevation: black shadows need far more opacity to read on dark grounds.
+  --shadow-rest: 0 4px 20px rgba(0, 0, 0, 0.22);
+  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 16px 36px rgba(0, 0, 0, 0.45);
+  --shadow-popover: 0 16px 36px rgba(0, 0, 0, 0.55);
+  --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.6);
+  --shadow-label: 0 2px 8px rgba(0, 0, 0, 0.45);
+
+  // Illustration helpers
+  --contact-shadow: rgba(0, 0, 0, 0.4);
+  --contact-shadow-strong: rgba(0, 0, 0, 0.55);
+  --dot-grid: rgba(231, 236, 228, 0.06);
 }
 
 *,
@@ -72,9 +207,9 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: 
-    linear-gradient(to right, rgba(221, 228, 217, 0.45) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(221, 228, 217, 0.45) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 64px 64px;
   pointer-events: none;
   z-index: 0;
@@ -89,7 +224,7 @@ main {
 // Selection Highlight
 ::selection {
   background-color: var(--color-accent);
-  color: var(--color-primary);
+  color: var(--color-on-accent);
 }
 
 // Typography Hierarchy Defaults
@@ -144,6 +279,34 @@ code, kbd, samp, pre {
   outline-offset: 3px;
 }
 
+// ==============================================================================
+// THEME SWITCH
+// The toggle reveals the new theme with a circular clip-path on the root view
+// transition (src/components/theme/view-transition.ts): replace the default
+// cross-fade with a hard cut that the clip-path animation then uncovers.
+// ==============================================================================
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+// While the reveal runs the new view is live: freeze CSS transitions so it shows the
+// final colors instead of every card fading between palettes.
+html[data-theme-switching] *,
+html[data-theme-switching] *::before,
+html[data-theme-switching] *::after {
+  transition: none !important;
+}
+
 // Reduced Motion Preference
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -154,4 +317,18 @@ code, kbd, samp, pre {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+// Accessible Screen Reader Only (visually hidden, accessible to assistive technologies)
+.sr-only,
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }

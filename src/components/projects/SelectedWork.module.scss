@@ -40,7 +40,7 @@
 .projectSearchInput {
   width: 100%;
   padding: 1rem 3rem 1rem 3.25rem;
-  background-color: var(--color-surface);
+  background-color: var(--input-bg);
   border: 1px solid var(--border-color);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.875rem;
@@ -94,7 +94,7 @@
 
   &.filterPillActive {
     background-color: var(--color-primary);
-    color: #FFFFFF;
+    color: var(--color-on-primary);
     border-color: var(--color-primary);
     font-weight: 700;
   }
@@ -249,7 +249,7 @@
 .emptyResetBtn {
   padding: 0.75rem 1.5rem;
   background-color: var(--accent);
-  color: var(--bg-primary);
+  color: var(--color-on-accent);
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
   font-weight: 700;
@@ -257,7 +257,7 @@
   transition: all $transition-fast;
 
   &:hover {
-    background-color: #d7ff85;
+    background-color: var(--accent-hover);
     transform: translateY(-2px);
   }
 }

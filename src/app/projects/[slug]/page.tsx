@@ -77,7 +77,7 @@ export default async function ProjectDetailPage({
         <div className={styles.container}>
           {/* Top Bar: Back & Breadcrumb */}
           <div className={styles.topBar}>
-            <Link href="/#work" className={styles.backBtn}>
+            <Link href="/work" className={styles.backBtn}>
               <ArrowLeft size={14} />
               <span>RETURN TO ALL PROJECTS</span>
             </Link>
@@ -87,7 +87,7 @@ export default async function ProjectDetailPage({
                 INDEX
               </Link>
               <span className={styles.divider}>/</span>
-              <Link href="/#work" className={styles.crumbLink}>
+              <Link href="/work" className={styles.crumbLink}>
                 WORK
               </Link>
               <span className={styles.divider}>/</span>
@@ -364,7 +364,7 @@ export default async function ProjectDetailPage({
               <div className={styles.sidebarCard}>
                 <h3 className={styles.sidebarTitle}>WORK REGISTRY</h3>
                 <Link
-                  href="/#work"
+                  href="/work"
                   className={styles.backBtn}
                   style={{ color: "var(--text-primary)" }}
                 >
@@ -402,7 +402,7 @@ export default async function ProjectDetailPage({
             </div>
 
             <div className={styles.backToWorkCta}>
-              <Link href="/#work" className={styles.backToWorkBtn}>
+              <Link href="/work" className={styles.backToWorkBtn}>
                 <ArrowLeft size={14} />
                 <span>RETURN TO WORK INDEX</span>
               </Link>

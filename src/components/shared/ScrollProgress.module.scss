@@ -8,6 +8,6 @@
   transform-origin: 0% 50%;
   z-index: 9999;
   pointer-events: none;
-  box-shadow: 0 0 8px rgba(197, 243, 107, 0.4);
+  box-shadow: 0 0 8px var(--accent-glow);
   transition: transform 60ms linear;
 }

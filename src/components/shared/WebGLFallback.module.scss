@@ -19,6 +19,32 @@
   animation: slowSpin 40s linear infinite;
 }
 
+// Schematic strokes/fills (theme tokens)
+.guide {
+  stroke: var(--color-border);
+}
+
+.orbit {
+  stroke: color-mix(in srgb, var(--accent-muted) 40%, transparent);
+}
+
+.spoke {
+  stroke: color-mix(in srgb, var(--accent-muted) 30%, transparent);
+}
+
+.accentStroke {
+  stroke: var(--accent-muted);
+}
+
+.node {
+  fill: var(--color-surface);
+  stroke: var(--accent-muted);
+}
+
+.core {
+  fill: var(--accent-muted);
+}
+
 @keyframes slowSpin {
   from {
     transform: rotate(0deg);

@@ -3,6 +3,9 @@ import { Space_Grotesk, Manrope, IBM_Plex_Mono } from "next/font/google";
 import "./globals.scss";
 import { personalData } from "@/data/personal";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { getThemeInitScript } from "@/lib/theme";
+import { FloatingFetchBuddy } from "@/components/fetch-game/FloatingFetchBuddy";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -76,8 +79,8 @@ export const metadata: Metadata = {
   },
 };
 
+// theme-color is rendered by <ThemeProvider> (ThemeColorMeta) so it follows the day/night theme.
 export const viewport: Viewport = {
-  themeColor: "#F7F8F3",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -113,18 +116,25 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${spaceGrotesk.variable} ${manrope.variable} ${ibmPlexMono.variable}`}
+      // data-theme / color-scheme are applied before hydration by the theme scripts.
+      suppressHydrationWarning
     >
       <head>
+        {/* Blocking: resolves auto (local time) vs pinned theme before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: getThemeInitScript() }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body>
-        <SmoothScroll>
-          <div className="technical-grid-bg" aria-hidden="true" />
-          <div className="site-wrapper">{children}</div>
-        </SmoothScroll>
+        <ThemeProvider>
+          <SmoothScroll>
+            <div className="technical-grid-bg" aria-hidden="true" />
+            <div className="site-wrapper">{children}</div>
+          </SmoothScroll>
+          <FloatingFetchBuddy />
+        </ThemeProvider>
       </body>
     </html>
   );

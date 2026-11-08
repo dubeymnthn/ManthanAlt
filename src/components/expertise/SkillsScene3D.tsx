@@ -6,6 +6,7 @@ import { OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three";
 import { skillsData, SkillNode, SkillCategory } from "@/data/skills";
 import { soundManager } from "@/lib/sound";
+import { THEME_PALETTE, useResolvedTheme, type ThemeName } from "@/lib/theme";
 
 interface SkillsScene3DProps {
   selectedCategory: SkillCategory | "ALL";
@@ -13,13 +14,79 @@ interface SkillsScene3DProps {
   onSelectSkill: (skill: SkillNode) => void;
 }
 
-const CATEGORY_COLORS: Record<SkillCategory, string> = {
-  Frontend: "#1D2921",
-  Backend: "#72953F",
-  Mobile: "#376E37",
-  Databases: "#285E52",
-  "Infrastructure & DevOps": "#4A6B5D",
-  "AI & Automation": "#5E7E38",
+interface ConstellationPalette {
+  categories: Record<SkillCategory, string>;
+  fallbackNode: string;
+  selectedNode: string;
+  relatedNode: string;
+  /** Emissive tint for selected and related nodes. */
+  highlightGlow: string;
+  emissiveIntensity: { selected: number; related: number; idle: number };
+  links: string;
+  linksOpacity: number;
+  selectionRing: string;
+  ambientIntensity: number;
+  keyLight: string;
+  keyIntensity: number;
+  coreGlow: string;
+  coreGlowIntensity: number;
+}
+
+const LIGHT = THEME_PALETTE.light;
+const DARK = THEME_PALETTE.dark;
+
+/**
+ * Day: deep ink/forest nodes on ivory. Night: luminous category hues on the night
+ * surface with a chartreuse glow. Material and light colors are plain props, so R3F
+ * updates them in place when the theme flips.
+ */
+const CONSTELLATION_PALETTES: Record<ThemeName, ConstellationPalette> = {
+  light: {
+    categories: {
+      Frontend: LIGHT.primary,
+      Backend: LIGHT.accentStrong,
+      Mobile: "#376E37",
+      Databases: "#285E52",
+      "Infrastructure & DevOps": "#4A6B5D",
+      "AI & Automation": "#5E7E38",
+    },
+    fallbackNode: LIGHT.secondary,
+    selectedNode: LIGHT.primary,
+    relatedNode: LIGHT.accentStrong,
+    highlightGlow: LIGHT.accentStrong,
+    emissiveIntensity: { selected: 0.6, related: 0.4, idle: 0.1 },
+    links: LIGHT.accentStrong,
+    linksOpacity: 0.35,
+    selectionRing: LIGHT.accentStrong,
+    ambientIntensity: 0.75,
+    keyLight: "#FFFFFF",
+    keyIntensity: 1.4,
+    coreGlow: LIGHT.accentStrong,
+    coreGlowIntensity: 1.2,
+  },
+  dark: {
+    categories: {
+      Frontend: DARK.primary,
+      Backend: DARK.accent,
+      Mobile: "#7CC47F",
+      Databases: "#6CC3AE",
+      "Infrastructure & DevOps": "#9FB8AB",
+      "AI & Automation": "#D4D97A",
+    },
+    fallbackNode: DARK.secondary,
+    selectedNode: "#F4F7F1",
+    relatedNode: DARK.accentStrong,
+    highlightGlow: DARK.accent,
+    emissiveIntensity: { selected: 0.6, related: 0.45, idle: 0.22 },
+    links: DARK.accent,
+    linksOpacity: 0.28,
+    selectionRing: DARK.accentStrong,
+    ambientIntensity: 0.45,
+    keyLight: DARK.primary,
+    keyIntensity: 1.1,
+    coreGlow: DARK.accent,
+    coreGlowIntensity: 1.6,
+  },
 };
 
 export function SkillsScene3D({
@@ -29,6 +96,7 @@ export function SkillsScene3D({
 }: SkillsScene3DProps) {
   const groupRef = useRef<THREE.Group>(null);
   const hoveredNodeRef = useRef<string | null>(null);
+  const palette = CONSTELLATION_PALETTES[useResolvedTheme()];
 
   // Filter skills based on selected category
   const activeSkills = useMemo(() => {
@@ -80,16 +148,16 @@ export function SkillsScene3D({
         dampingFactor={0.05}
       />
 
-      <ambientLight intensity={0.75} />
-      <directionalLight position={[5, 10, 7]} intensity={1.4} color="#ffffff" />
-      <pointLight position={[0, 0, 0]} intensity={1.2} color="#72953F" distance={8} />
+      <ambientLight intensity={palette.ambientIntensity} />
+      <directionalLight position={[5, 10, 7]} intensity={palette.keyIntensity} color={palette.keyLight} />
+      <pointLight position={[0, 0, 0]} intensity={palette.coreGlowIntensity} color={palette.coreGlow} distance={8} />
 
       <group ref={groupRef}>
         {/* Constellation Connection Grid */}
         <lineSegments geometry={lineData}>
           <lineBasicMaterial
-            color="#72953F"
-            opacity={0.35}
+            color={palette.links}
+            opacity={palette.linksOpacity}
             transparent
             depthWrite={false}
           />
@@ -104,10 +172,10 @@ export function SkillsScene3D({
             selectedSkill?.related.includes(skill.id) || false;
 
           const nodeColor = isSelected
-            ? "#1D2921"
+            ? palette.selectedNode
             : isRelatedToSelected
-            ? "#72953F"
-            : CATEGORY_COLORS[skill.category] || "#647267";
+            ? palette.relatedNode
+            : palette.categories[skill.category] || palette.fallbackNode;
 
           const opacity = isCategoryMatch ? 1 : 0.15;
           const scale = isSelected ? 1.5 : isRelatedToSelected ? 1.25 : 1;
@@ -142,8 +210,14 @@ export function SkillsScene3D({
                 )}
                 <meshStandardMaterial
                   color={nodeColor}
-                  emissive={isSelected ? "#72953F" : isRelatedToSelected ? "#72953F" : nodeColor}
-                  emissiveIntensity={isSelected ? 0.6 : isRelatedToSelected ? 0.4 : 0.1}
+                  emissive={isSelected || isRelatedToSelected ? palette.highlightGlow : nodeColor}
+                  emissiveIntensity={
+                    isSelected
+                      ? palette.emissiveIntensity.selected
+                      : isRelatedToSelected
+                      ? palette.emissiveIntensity.related
+                      : palette.emissiveIntensity.idle
+                  }
                   roughness={0.25}
                   metalness={0.5}
                   transparent
@@ -155,11 +229,11 @@ export function SkillsScene3D({
               {isSelected && (
                 <mesh>
                   <ringGeometry args={[0.35, 0.38, 24]} />
-                  <meshBasicMaterial color="#72953F" side={THREE.DoubleSide} />
+                  <meshBasicMaterial color={palette.selectionRing} side={THREE.DoubleSide} />
                 </mesh>
               )}
 
-              {/* Text Label in 3D Space for Featured or Selected */}
+              {/* Text Label in 3D Space for Featured or Selected (real DOM: themed via CSS tokens) */}
               {(skill.featured || isSelected || isRelatedToSelected) && isCategoryMatch && (
                 <Html
                   position={[0, 0.38, 0]}
@@ -171,11 +245,11 @@ export function SkillsScene3D({
                     fontSize: isSelected ? "11px" : "9px",
                     fontWeight: isSelected ? 700 : 500,
                     letterSpacing: "0.08em",
-                    color: isSelected ? "#72953F" : "#1D2921",
-                    backgroundColor: "rgba(255, 255, 255, 0.94)",
+                    color: isSelected ? "var(--accent-muted)" : "var(--text-primary)",
+                    backgroundColor: "var(--surface-glass-strong)",
                     padding: "3px 7px",
-                    border: `1px solid ${isSelected ? "#72953F" : "#DDE4D9"}`,
-                    boxShadow: "0 2px 8px rgba(29, 41, 33, 0.08)",
+                    border: `1px solid ${isSelected ? "var(--accent-muted)" : "var(--border-color)"}`,
+                    boxShadow: "var(--shadow-label)",
                     whiteSpace: "nowrap",
                     transform: "translate3d(0, 0, 0)",
                     userSelect: "none",

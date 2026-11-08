@@ -2,19 +2,23 @@
 // DESIGN SYSTEM VARIABLES — LIGHT EDITORIAL / CREATIVE ENGINEERING
 // ==============================================================================
 
-// Light Editorial Color Palette
-$color-background: #F7F8F3;       // Warm ivory primary background
-$color-surface: #FFFFFF;          // Pure white surface
-$color-surface-muted: #EEF2E9;    // Soft muted surface for elevation
-$color-surface-hover: #E7ECE3;    // Crisp hover surface
-$color-primary: #1D2921;          // Deep forest green / charcoal typography
-$color-secondary: #647267;        // Muted sage grey secondary text
-$color-tertiary: #8A968C;         // Technical label grey
-$color-accent: #B7DB72;           // Vibrant chartreuse accent
-$color-accent-dark: #72953F;      // High-contrast deep chartreuse for readable text & active states
-$color-border: #DDE4D9;           // Subtle crisp borders
-$color-grid: #E7ECE3;             // Technical grid guidelines
-$color-dark-section: #233229;     // Deep forest contrast surface
+// Theme-aware Color Palette
+// These resolve to the CSS custom properties defined in src/app/globals.scss, which switch
+// between the day and night palettes via <html data-theme>. They are runtime values, so do
+// NOT pass them to Sass color functions (rgba($x, a), darken, mix, ...): use
+// color-mix(in srgb, $x N%, transparent) for translucent variants instead.
+$color-background: var(--color-background);       // Warm ivory / forest night
+$color-surface: var(--color-surface);             // Card surface
+$color-surface-muted: var(--color-surface-muted); // Soft muted surface for elevation
+$color-surface-hover: var(--color-surface-hover); // Crisp hover surface
+$color-primary: var(--color-primary);             // Primary ink
+$color-secondary: var(--color-secondary);         // Muted sage secondary text
+$color-tertiary: var(--color-tertiary);           // Technical label grey
+$color-accent: var(--color-accent);               // Vibrant chartreuse accent
+$color-accent-dark: var(--color-accent-dark);     // Readable accent for text & active states
+$color-border: var(--color-border);               // Subtle crisp borders
+$color-grid: var(--color-grid);                   // Technical grid guidelines
+$color-dark-section: var(--color-dark-section);   // Deep forest contrast surface
 
 // Backward-compatible semantic SCSS aliases
 $color-bg-primary: $color-background;
@@ -27,11 +31,11 @@ $color-text-secondary: $color-secondary;
 $color-text-tertiary: $color-tertiary;
 
 $color-accent-muted: $color-accent-dark;
-$color-accent-subtle: rgba(183, 219, 114, 0.22);
-$color-accent-glow: rgba(183, 219, 114, 0.45);
+$color-accent-subtle: var(--accent-subtle);
+$color-accent-glow: var(--accent-glow);
 
-$color-border-light: rgba(29, 41, 33, 0.08);
-$color-border-accent: rgba(114, 149, 63, 0.4);
+$color-border-light: var(--border-light);
+$color-border-accent: var(--border-accent);
 
 // Typography Fonts
 $font-display: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;

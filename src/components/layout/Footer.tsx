@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowUp, Mail, FileText } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/Icons";
 import styles from "./Footer.module.scss";
@@ -71,7 +72,7 @@ export function Footer() {
             <ul className={styles.linkList}>
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a
+                  <Link
                     href={item.href}
                     className={styles.linkItem}
                     onMouseEnter={() => soundManager.playHover()}
@@ -79,7 +80,7 @@ export function Footer() {
                   >
                     <span className={styles.num}>{item.index}</span>
                     <span>{item.label}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

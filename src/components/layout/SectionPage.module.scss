@@ -1,0 +1,374 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+$ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+
+// ==============================================================================
+// PAGE BODY
+// ==============================================================================
+
+// Clears the fixed navbar; everything below follows the section's own rhythm.
+.main {
+  padding-top: var(--nav-height, #{$nav-height});
+}
+
+// ==============================================================================
+// MASTHEAD — breadcrumb + page position, sits on the section's top rule
+// ==============================================================================
+
+.masthead {
+  @include section-container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: clamp(1rem, 2.4vw, 1.6rem);
+  padding-bottom: clamp(1rem, 2.4vw, 1.6rem);
+}
+
+.trail {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  min-width: 0;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.crumbLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  transition: color $transition-fast;
+
+  svg {
+    transition: transform $transition-fast;
+  }
+
+  &:hover {
+    color: var(--accent-muted);
+
+    svg {
+      transform: translateX(-3px);
+    }
+  }
+}
+
+.crumbDivider {
+  color: var(--border-color);
+}
+
+.pageTitle {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.pageIndex {
+  color: var(--accent-muted);
+}
+
+.position {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+}
+
+.meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.meterTick {
+  width: 10px;
+  height: 4px;
+  background-color: var(--border-color);
+  transition: background-color $transition-smooth;
+}
+
+.meterTickOn {
+  background-color: var(--accent-muted);
+}
+
+// ==============================================================================
+// SECTION CONTENT
+// ==============================================================================
+
+.content {
+  // Section components carry 5-6rem of vertical padding sized for the long homepage.
+  // Directly below the masthead the first one can sit closer, especially on phones.
+  > section:first-child {
+    padding-top: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  > section:last-child {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+}
+
+// Entrance on every page load / client-side navigation. Transforms end at `none`
+// (fill-mode: backwards) so fixed-position modals inside sections are not re-parented.
+@media (prefers-reduced-motion: no-preference) {
+  .masthead {
+    animation: sectionPageEnter 520ms $ease-editorial backwards;
+  }
+
+  .content {
+    animation: sectionPageEnter 680ms $ease-editorial 80ms backwards;
+  }
+}
+
+@keyframes sectionPageEnter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// ==============================================================================
+// PREV / NEXT PAGER
+// ==============================================================================
+
+.pager {
+  position: relative;
+  border-top: 1px solid var(--border-color);
+}
+
+.pagerInner {
+  @include section-container;
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.pagerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.pagerLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+
+  strong {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+}
+
+.pagerSlash {
+  color: var(--accent-muted);
+  opacity: 0.6;
+  letter-spacing: -0.1em;
+}
+
+.track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.trackLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 1.75rem;
+  padding: 0 0.5rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  transition: color $transition-fast, border-color $transition-fast, background-color $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-muted);
+    transform: translateY(-1px);
+  }
+
+  @include mobile {
+    min-width: 2rem;
+    padding: 0 0.35rem;
+  }
+}
+
+.trackLinkActive,
+.trackLinkActive:hover {
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+  color: var(--color-on-primary, var(--bg-primary));
+  transform: none;
+}
+
+.pagerGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1px;
+  background-color: var(--border-color);
+  border: 1px solid var(--border-color);
+
+  @media (min-width: $bp-tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.pagerLink {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  overflow: hidden;
+  transition: background-color $transition-smooth;
+
+  // Accent rule that sweeps in from the side the link points to
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transition: transform $transition-smooth;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--bg-surface-hover);
+    color: var(--text-primary);
+
+    &::before {
+      transform: scaleX(1);
+    }
+
+    .pagerTitle {
+      color: var(--accent-muted);
+    }
+  }
+}
+
+.pagerPrev {
+  &::before {
+    transform-origin: right center;
+  }
+
+  &:hover .pagerArrow,
+  &:focus-visible .pagerArrow {
+    transform: translateX(-4px);
+  }
+}
+
+.pagerNext {
+  &::before {
+    transform-origin: left center;
+  }
+
+  &:hover .pagerArrow,
+  &:focus-visible .pagerArrow {
+    transform: translateX(4px);
+  }
+
+  @media (min-width: $bp-tablet) {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.pagerDir {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+}
+
+.pagerArrow {
+  flex-shrink: 0;
+  transition: transform $transition-smooth;
+}
+
+.pagerIndex {
+  color: var(--accent-muted);
+  font-weight: 700;
+}
+
+.pagerTitle {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  transition: color $transition-fast;
+}
+
+.pagerSummary {
+  max-width: 36ch;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+// ==============================================================================
+// UTILITIES
+// ==============================================================================
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
