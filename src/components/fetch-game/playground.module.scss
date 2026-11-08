@@ -36,8 +36,12 @@
   --pg-ground-h: 20;
   --pg-ball-hit: 44;
   --ball-shine: #FFFFFF;
-  --pg-confetti-1: var(--color-accent, #B7DB72);
-  --pg-confetti-2: var(--color-accent-dark, #72953F);
+  // Bucky's illustration keeps its own natural colours (tennis-ball green, collar) —
+  // deliberately NOT bound to the theme accent, which is silver in the editorial palette.
+  --pg-ball-felt: #B7DB72;
+  --pg-ball-rim: #72953F;
+  --pg-confetti-1: var(--champagne, #B6B2A9);
+  --pg-confetti-2: var(--graphite, #454A47);
   --pg-confetti-3: #FFFFFF;
   --pg-confetti-4: #E8A870;
   --tag-glow-opacity: 0.25;
@@ -224,7 +228,7 @@
 }
 
 .ballFelt {
-  fill: var(--color-accent, #B7DB72);
+  fill: var(--pg-ball-felt);
 }
 
 .ballSeam {
@@ -245,7 +249,7 @@
 
 .ballRim {
   fill: none;
-  stroke: var(--color-accent-dark, #72953F);
+  stroke: var(--pg-ball-rim);
   stroke-width: 0.8;
 }
 
@@ -330,17 +334,17 @@
 }
 
 .dogCollar {
-  fill: var(--color-accent, #B7DB72);
+  fill: var(--pg-ball-felt);
 }
 
 .dogTagGlow {
-  fill: var(--color-accent, #B7DB72);
+  fill: var(--pg-ball-felt);
   opacity: var(--tag-glow-opacity);
   transition: opacity 0.3s ease;
 }
 
 .dogTag {
-  fill: var(--color-accent-dark, #72953F);
+  fill: var(--pg-ball-rim);
 }
 
 .dogHaunch {
@@ -405,7 +409,7 @@
   margin-left: -14px;
   margin-top: -14px;
   border-radius: 50%;
-  border: 1.5px solid var(--color-accent, #B7DB72);
+  border: 1.5px solid var(--pg-ball-felt);
   pointer-events: none;
   z-index: 3;
 }
@@ -451,13 +455,13 @@
   white-space: nowrap;
 
   .bubble[data-kind="bark"] & {
-    color: var(--color-accent-dark, #72953F);
-    border-color: var(--color-accent-dark, #72953F);
+    color: var(--graphite, #454A47);
+    border-color: var(--graphite, #454A47);
   }
 
   .bubble[data-kind="praise"] & {
-    color: var(--color-primary, #1D2921);
-    border-color: var(--color-accent, #B7DB72);
+    color: var(--graphite, #454A47);
+    border-color: var(--silver, #BFC3C0);
 
     &::before {
       content: "";
@@ -465,7 +469,7 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background-color: var(--color-accent, #B7DB72);
+      background-color: var(--champagne, #B6B2A9);
       margin-right: 0.35rem;
       vertical-align: middle;
     }
@@ -477,7 +481,7 @@
   }
 
   .bubble[data-kind="love"] & {
-    color: #E87070;
+    color: var(--graphite, #454A47);
   }
 }
 

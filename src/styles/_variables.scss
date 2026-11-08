@@ -18,7 +18,13 @@ $color-accent: var(--color-accent);               // Vibrant chartreuse accent
 $color-accent-dark: var(--color-accent-dark);     // Readable accent for text & active states
 $color-border: var(--color-border);               // Subtle crisp borders
 $color-grid: var(--color-grid);                   // Technical grid guidelines
-$color-dark-section: var(--color-dark-section);   // Deep forest contrast surface
+$color-dark-section: var(--color-dark-section);   // Deep contrast surface
+
+// Premium White Editorial Palette
+$color-silver: var(--silver);                     // #BFC3C0
+$color-champagne: var(--champagne);               // #B6B2A9
+$color-graphite: var(--graphite);                 // #454A47
+$color-surface-secondary: var(--surface-secondary); // #F2F3F1
 
 // Backward-compatible semantic SCSS aliases
 $color-bg-primary: $color-background;

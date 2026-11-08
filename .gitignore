@@ -20,6 +20,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# tooling & scratch
+.gstack/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

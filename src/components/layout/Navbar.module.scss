@@ -269,20 +269,23 @@
 .navCta {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.4rem 0.85rem;
-  background-color: var(--color-primary);
-  color: var(--color-on-primary, var(--color-background));
+  gap: 0.35rem;
+  padding: 0.45rem 0.95rem;
+  background-color: var(--graphite);
+  color: #FFFFFF !important;
+  border: 1px solid var(--graphite);
+  border-radius: 3px;
   font-family: var(--font-ibm-plex-mono), monospace;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   white-space: nowrap;
-  transition: background-color $transition-fast, transform $transition-fast;
+  transition: background-color $transition-fast, transform $transition-fast, border-color $transition-fast;
 
   &:hover {
-    background-color: var(--accent-muted);
-    color: var(--color-on-primary, var(--color-background));
+    background-color: #202321;
+    border-color: #202321;
+    color: #FFFFFF !important;
     transform: translateY(-1px);
   }
 

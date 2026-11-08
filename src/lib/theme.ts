@@ -64,8 +64,8 @@ export function getNextThemeMode(
 
 /** Background color per theme; mirrored in <meta name="theme-color">. */
 export const THEME_BACKGROUND: Record<ThemeName, string> = {
-  light: "#F7F8F3",
-  dark: "#0F1512",
+  light: "#FAFAF9",
+  dark: "#111413",
 };
 
 export interface ThemePalette {
@@ -90,26 +90,26 @@ export const THEME_PALETTE: Record<ThemeName, ThemePalette> = {
   light: {
     background: THEME_BACKGROUND.light,
     surface: "#FFFFFF",
-    surfaceMuted: "#EEF2E9",
-    primary: "#1D2921",
-    secondary: "#647267",
-    tertiary: "#8A968C",
-    accent: "#B7DB72",
-    accentStrong: "#72953F",
-    border: "#DDE4D9",
-    darkSection: "#233229",
+    surfaceMuted: "#F2F3F1",
+    primary: "#202321",
+    secondary: "#737A78",
+    tertiary: "#8E9693",
+    accent: "#BFC3C0",
+    accentStrong: "#454A47",
+    border: "#E4E6E3",
+    darkSection: "#202321",
   },
   dark: {
     background: THEME_BACKGROUND.dark,
-    surface: "#151D18",
-    surfaceMuted: "#1B2520",
-    primary: "#E7ECE4",
-    secondary: "#A3B0A6",
-    tertiary: "#86948B",
-    accent: "#B7DB72",
-    accentStrong: "#C5E38A",
-    border: "#2A362E",
-    darkSection: "#233229",
+    surface: "#171A19",
+    surfaceMuted: "#1F2321",
+    primary: "#EDEDEB",
+    secondary: "#9FA6A3",
+    tertiary: "#7E8683",
+    accent: "#BFC3C0",
+    accentStrong: "#D6D9D7",
+    border: "#2B312E",
+    darkSection: "#171A19",
   },
 };
 

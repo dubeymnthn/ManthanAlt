@@ -32,6 +32,10 @@ export interface PersonalData {
     label: string;
     value: string;
   }[];
+  professionalHighlights: {
+    label: string;
+    detail?: string;
+  }[];
 }
 
 export const personalData: PersonalData = {
@@ -111,5 +115,11 @@ export const personalData: PersonalData = {
     { label: "PRIMARY STACK", value: "Node, TS, React, Python" },
     { label: "LOCAL NODE", value: "IST (UTC +5:30)" },
     { label: "ARCHITECTURE", value: "Distributed & Modular" },
+  ],
+  professionalHighlights: [
+    { label: "11 Products Built", detail: "End-to-End" },
+    { label: "Full-Stack Engineering", detail: "Web & Mobile" },
+    { label: "AI & Automation", detail: "Agents & Pipelines" },
+    { label: "Product Engineering", detail: "Architecture to Launch" },
   ],
 };
