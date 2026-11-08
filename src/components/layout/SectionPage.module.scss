@@ -127,29 +127,6 @@ $ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
-// Entrance on every page load / client-side navigation. Transforms end at `none`
-// (fill-mode: backwards) so fixed-position modals inside sections are not re-parented.
-@media (prefers-reduced-motion: no-preference) {
-  .masthead {
-    animation: sectionPageEnter 520ms $ease-editorial backwards;
-  }
-
-  .content {
-    animation: sectionPageEnter 680ms $ease-editorial 80ms backwards;
-  }
-}
-
-@keyframes sectionPageEnter {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 16px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 // ==============================================================================
 // PREV / NEXT PAGER
 // ==============================================================================

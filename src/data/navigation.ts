@@ -14,7 +14,7 @@ export const homeNavItem: NavItem = {
   label: "INDEX",
   href: "/",
   index: "01",
-  summary: "The complete portfolio on a single page.",
+  summary: "Introduction: portrait and the five featured products.",
 };
 
 export const navItems: NavItem[] = [

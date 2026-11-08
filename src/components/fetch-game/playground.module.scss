@@ -32,9 +32,9 @@
 // Play Area / Root
 // ------------------------------------------------------------------------------
 .playground {
-  --pg-scale: 0.72;
+  --pg-scale: 0.936; // 0.72 × 1.3 — whole court (dog, ball, physics distances) scales together
   --pg-ground-h: 20;
-  --pg-ball-hit: 44;
+  --pg-ball-hit: 52;
   --ball-shine: #FFFFFF;
   // Bucky's illustration keeps its own natural colours (tennis-ball green, collar) —
   // deliberately NOT bound to the theme accent, which is silver in the editorial palette.
@@ -57,9 +57,9 @@
   pointer-events: none;
 
   @include mobile {
-    --pg-scale: 0.58;
+    --pg-scale: 0.754; // 0.58 × 1.3
     --pg-ground-h: 16;
-    --pg-ball-hit: 38;
+    --pg-ball-hit: 46;
   }
 }
 
@@ -188,8 +188,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
+  // Must equal --pg-ball-hit: the game centres the button on the physics body using that value.
+  width: calc(var(--pg-ball-hit) * 1px);
+  height: calc(var(--pg-ball-hit) * 1px);
   padding: 0;
   margin: 0;
   border: none;
@@ -214,10 +215,6 @@
     border-radius: 50%;
   }
 
-  @include mobile {
-    width: 36px;
-    height: 36px;
-  }
 }
 
 .ballSvg {
@@ -225,6 +222,21 @@
   height: calc(24px * var(--pg-scale, 0.65));
   overflow: visible;
   pointer-events: none;
+  transform-origin: 50% 50%;
+  transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+// Ball grows when hovered or while it is being held, so it is easier to grab
+.ballButton:hover .ballSvg,
+.ballButton:focus-visible .ballSvg,
+.ballButton:active .ballSvg {
+  transform: scale(1.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ballSvg {
+    transition: none;
+  }
 }
 
 .ballFelt {

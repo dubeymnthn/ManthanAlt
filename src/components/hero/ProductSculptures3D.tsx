@@ -2,13 +2,10 @@
 
 import { useEffect, useMemo, useRef, type ReactNode } from "react";
 import { useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
-import { Environment, Html, Lightformer, Line } from "@react-three/drei";
+import { Environment, Lightformer, Line } from "@react-three/drei";
 import * as THREE from "three";
-import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
 import { soundManager } from "@/lib/sound";
-import styles from "./HeroSection.module.scss";
 import { HERO_CHAIN_ORDER, HERO_PRODUCTS, type HeroProduct } from "./heroProducts";
 import {
   DravyamSculpture,
@@ -58,6 +55,11 @@ function StudioLighting() {
   );
 }
 
+// Narrow canvases (phones) compress the horizontal spread instead of shrinking everything.
+function layoutFactor(width: number, height: number) {
+  return THREE.MathUtils.clamp(width / Math.max(height, 1) / 1.19, 0.68, 1);
+}
+
 function ResponsiveCamera() {
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   const size = useThree((s) => s.size);
@@ -65,7 +67,8 @@ function ResponsiveCamera() {
   useEffect(() => {
     const aspect = size.width / Math.max(size.height, 1);
     const tanHalf = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-    const z = Math.max(WORLD_W / 2 / (tanHalf * aspect), WORLD_H / 2 / tanHalf);
+    const worldW = WORLD_W * layoutFactor(size.width, size.height);
+    const z = Math.max(worldW / 2 / (tanHalf * aspect), WORLD_H / 2 / tanHalf);
     camera.position.set(0, 0, z);
     camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
@@ -182,69 +185,40 @@ function SculptureShell({ product, hovered, reduced, onHover, onOpen, wasDragged
 }
 
 // ----------------------------------------------------------------------------
-// Clear, linkable project label anchored under each sculpture.
-// Rendered by drei <Html> into a separate DOM root, so it uses a plain <a>
-// (real href for a11y / new-tab) and the router handed in from the scene.
-// ----------------------------------------------------------------------------
-function ProductLabel({
-  product,
-  hovered,
-  onHover,
-  onOpen,
-}: {
-  product: HeroProduct;
-  hovered: boolean;
-  onHover: (p: HeroProduct | null) => void;
-  onOpen: (p: HeroProduct) => void;
-}) {
-  const [x, y, z] = product.position;
-  return (
-    <Html position={[x + product.labelDx, y - 0.98 * product.scale, z + 0.2]} center zIndexRange={[30, 0]}>
-      <a
-        href={product.route}
-        className={clsx(styles.projectTag, hovered && styles.tagActive)}
-        onMouseEnter={() => {
-          onHover(product);
-          soundManager.playHover();
-        }}
-        onMouseLeave={() => onHover(null)}
-        onFocus={() => onHover(product)}
-        onBlur={() => onHover(null)}
-        onClick={(e) => {
-          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-          e.preventDefault();
-          onOpen(product);
-        }}
-      >
-        <span className={styles.tagIndex}>{product.index}</span>
-        <span className={styles.tagBody}>
-          <span className={styles.tagName}>{product.name}</span>
-          <span className={styles.tagCategory}>{product.category}</span>
-        </span>
-        <ArrowUpRight size={12} className={styles.tagArrow} aria-hidden="true" />
-      </a>
-    </Html>
-  );
-}
-
-// ----------------------------------------------------------------------------
 // Scene
 // ----------------------------------------------------------------------------
 interface ProductSculptures3DProps {
   onHoverProduct: (product: HeroProduct | null) => void;
   hoveredProductId: string | null;
   reducedMotion: boolean;
+  /** DOM label elements (owned by the canvas wrapper) that this scene positions each frame. */
+  labelRefs: { current: Record<string, HTMLElement | null> };
 }
 
 export function ProductSculptures3D({
   onHoverProduct,
   hoveredProductId,
   reducedMotion,
+  labelRefs,
 }: ProductSculptures3DProps) {
   const router = useRouter();
   const gl = useThree((s) => s.gl);
   const pointer = useThree((s) => s.pointer);
+  const size = useThree((s) => s.size);
+  const camera = useThree((s) => s.camera);
   const rig = useRef<THREE.Group>(null);
+  const labelPoint = useMemo(() => new THREE.Vector3(), []);
+
+  const kx = layoutFactor(size.width, size.height);
+  const products = useMemo(
+    () =>
+      HERO_PRODUCTS.map((p) => ({
+        ...p,
+        position: [p.position[0] * kx, p.position[1], p.position[2]] as [number, number, number],
+        labelDx: p.labelDx * kx,
+      })),
+    [kx]
+  );
 
   const userRot = useRef({ x: 0, y: 0 });
   const drag = useRef({ active: false, id: -1, x: 0, y: 0, moved: 0, releasedAt: 0 });
@@ -252,11 +226,11 @@ export function ProductSculptures3D({
   // Fine connecting line through the five plinths, in reading order.
   const linePoints = useMemo(() => {
     const pts = HERO_CHAIN_ORDER.map((id) => {
-      const p = HERO_PRODUCTS.find((h) => h.id === id)!;
+      const p = products.find((h) => h.id === id)!;
       return new THREE.Vector3(p.position[0], p.position[1] - 0.1, p.position[2] - 0.3);
     });
     return new THREE.CatmullRomCurve3(pts, false, "centripetal").getPoints(90);
-  }, []);
+  }, [products]);
 
   const open = (p: HeroProduct) => {
     soundManager.playClick();
@@ -326,6 +300,20 @@ export function ProductSculptures3D({
     const k = 1 - Math.exp(-d * 5);
     g.rotation.y += (ty - g.rotation.y) * k;
     g.rotation.x += (tx - g.rotation.x) * k;
+
+    // Anchor each DOM label under its sculpture (plain DOM: no extra React roots).
+    g.updateWorldMatrix(true, false);
+    for (const p of products) {
+      const el = labelRefs.current[p.id];
+      if (!el) continue;
+      labelPoint.set(p.position[0] + p.labelDx, p.position[1] - 0.98 * p.scale, p.position[2] + 0.2);
+      g.localToWorld(labelPoint).project(camera);
+      const x = (labelPoint.x * 0.5 + 0.5) * size.width;
+      const y = (-labelPoint.y * 0.5 + 0.5) * size.height;
+      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%)`;
+      el.style.opacity = "1";
+      el.style.pointerEvents = "auto";
+    }
   });
 
   return (
@@ -336,7 +324,7 @@ export function ProductSculptures3D({
       <group ref={rig}>
         <Line points={linePoints} color={SILVER} lineWidth={1} transparent opacity={0.8} />
 
-        {HERO_PRODUCTS.map((product) => (
+        {products.map((product) => (
           <SculptureShell
             key={product.id}
             product={product}
@@ -348,15 +336,6 @@ export function ProductSculptures3D({
           />
         ))}
 
-        {HERO_PRODUCTS.map((product) => (
-          <ProductLabel
-            key={`label-${product.id}`}
-            product={product}
-            hovered={hoveredProductId === product.id}
-            onHover={onHoverProduct}
-            onOpen={open}
-          />
-        ))}
       </group>
     </>
   );

@@ -2,7 +2,8 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, Sparkles, Layers, Cpu, Box } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Sparkles, Layers, Cpu, Box } from "lucide-react";
 import styles from "./HeroSection.module.scss";
 import { personalData } from "@/data/personal";
 import { soundManager } from "@/lib/sound";
@@ -54,25 +55,25 @@ export function HeroSection() {
             <p className={styles.supportingCopy}>{personalData.heroBio}</p>
 
             <div className={styles.ctaRow}>
-              <a
-                href="#work"
+              <Link
+                href="/work"
                 className={styles.primaryCta}
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
               >
                 <span>EXPLORE MY WORK</span>
-                <ArrowDown size={14} className={styles.ctaIcon} />
-              </a>
+                <ArrowRight size={14} className={styles.ctaIcon} />
+              </Link>
 
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className={styles.secondaryCta}
                 onMouseEnter={() => soundManager.playHover()}
                 onClick={() => soundManager.playClick()}
               >
                 <span>LET&apos;S TALK</span>
                 <ArrowUpRight size={14} className={styles.ctaIcon} />
-              </a>
+              </Link>
             </div>
 
             <div className={styles.highlightsContainer}>
@@ -120,14 +121,6 @@ export function HeroSection() {
           </div>
           {!hasWebGL && <HeroProductLinks />}
         </div>
-      </div>
-
-      {/* Bottom First-Screen Scroll Indicator */}
-      <div className={styles.scrollAnchor}>
-        <a href="#work" className={styles.scrollLink} aria-label="Scroll to Explore 11 Products Built">
-          <span className={styles.scrollText}>SCROLL TO EXPLORE / 11 PRODUCTS BUILT</span>
-          <span className={styles.scrollLine} />
-        </a>
       </div>
     </section>
   );
