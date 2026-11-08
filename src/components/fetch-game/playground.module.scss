@@ -24,7 +24,7 @@
   pointer-events: none; // Unobtrusive: clicks pass through empty regions to page content
 
   @include mobile {
-    height: 102px;
+    height: 100%;
   }
 }
 
