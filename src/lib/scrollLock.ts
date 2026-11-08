@@ -8,7 +8,13 @@ export interface LenisInstance {
   stop: () => void;
   scrollTo: (
     target: number | string | HTMLElement,
-    options?: { immediate?: boolean; force?: boolean }
+    options?: {
+      offset?: number;
+      immediate?: boolean;
+      force?: boolean;
+      duration?: number;
+      easing?: (t: number) => number;
+    }
   ) => void;
   resize?: () => void;
   isStopped?: boolean;
@@ -29,6 +35,8 @@ export function getLenis(): LenisInstance | null {
   }
   return null;
 }
+
+export const getGlobalLenis = getLenis;
 
 export function setGlobalLenis(instance: LenisInstance | null) {
   if (typeof window !== "undefined") {
@@ -120,5 +128,31 @@ export function unlockScroll() {
         console.warn("Could not resume Lenis:", err);
       }
     }
+  }
+}
+
+/**
+ * Force cleanup of any lingering scroll locks upon route transitions
+ */
+export function forceResetScrollLock() {
+  if (typeof window === "undefined") return;
+  lockCount = 0;
+  document.documentElement.style.overflow = "";
+  document.documentElement.style.overscrollBehavior = "";
+  document.body.style.overflow = "";
+  document.body.style.overscrollBehavior = "";
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  document.body.style.paddingRight = "";
+
+  const lenis = getLenis();
+  if (lenis && typeof lenis.start === "function") {
+    try {
+      lenis.start();
+      lenis.resize?.();
+    } catch {}
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowUpRight, Layers, CheckCircle2 } from "lucide-react";
 import styles from "./ProjectCard.module.scss";
 import { Project } from "@/data/projects";
@@ -8,19 +9,15 @@ import { ProjectArchitectureDiagram } from "./ProjectArchitectureDiagram";
 
 interface ProjectCardProps {
   project: Project;
-  onOpenCaseStudy: (project: Project) => void;
+  onOpenCaseStudy?: (project: Project) => void;
   compact?: boolean;
 }
 
-export function ProjectCard({ project, onOpenCaseStudy, compact = false }: ProjectCardProps) {
+export function ProjectCard({ project, compact = false }: ProjectCardProps) {
   if (compact) {
     return (
       <article
         className={styles.compactCard}
-        onClick={() => {
-          soundManager.playClick();
-          onOpenCaseStudy(project);
-        }}
         onMouseEnter={() => soundManager.playHover()}
       >
         <div className={styles.compactTop}>
@@ -32,7 +29,13 @@ export function ProjectCard({ project, onOpenCaseStudy, compact = false }: Proje
           <span className={styles.compactStatusBadge}>[COMPLETED]</span>
         </div>
 
-        <h4 className={styles.compactTitle}>{project.title}</h4>
+        <Link
+          href={`/projects/${project.slug}`}
+          onClick={() => soundManager.playClick()}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <h4 className={styles.compactTitle}>{project.title}</h4>
+        </Link>
         <p className={styles.compactTagline}>{project.subtitle}</p>
 
         <p className={styles.compactSummary}>{project.shortDescription}</p>
@@ -46,18 +49,14 @@ export function ProjectCard({ project, onOpenCaseStudy, compact = false }: Proje
         </div>
 
         <div className={styles.compactAction}>
-          <button
-            type="button"
+          <Link
+            href={`/projects/${project.slug}`}
             className={styles.compactBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              soundManager.playClick();
-              onOpenCaseStudy(project);
-            }}
+            onClick={() => soundManager.playClick()}
           >
             <span>EXPLORE PROJECT</span>
             <ArrowUpRight size={13} className={styles.btnArrow} />
-          </button>
+          </Link>
         </div>
       </article>
     );
@@ -81,7 +80,13 @@ export function ProjectCard({ project, onOpenCaseStudy, compact = false }: Proje
         {/* Left: Project Details & Storytelling */}
         <div className={styles.cardInfoCol}>
           <div className={styles.titleBlock}>
-            <h3 className={styles.projectTitle}>{project.title}</h3>
+            <Link
+              href={`/projects/${project.slug}`}
+              onClick={() => soundManager.playClick()}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <h3 className={styles.projectTitle}>{project.title}</h3>
+            </Link>
             <p className={styles.projectSubtitle}>{project.subtitle}</p>
           </div>
 
@@ -112,36 +117,31 @@ export function ProjectCard({ project, onOpenCaseStudy, compact = false }: Proje
 
           {/* Actions */}
           <div className={styles.actionRow}>
-            <button
-              type="button"
+            <Link
+              href={`/projects/${project.slug}`}
               className={styles.caseStudyBtn}
-              onClick={() => {
-                soundManager.playClick();
-                onOpenCaseStudy(project);
-              }}
+              onClick={() => soundManager.playClick()}
               onMouseEnter={() => soundManager.playHover()}
             >
               <Layers size={14} />
               <span>EXPLORE PROJECT & CASE STUDY</span>
               <ArrowUpRight size={14} className={styles.btnArrow} />
-            </button>
+            </Link>
           </div>
         </div>
 
         {/* Right: Architectural Schematic Diagram */}
-        <div
+        <Link
+          href={`/projects/${project.slug}`}
           className={styles.cardDiagramCol}
-          onClick={() => {
-            soundManager.playClick();
-            onOpenCaseStudy(project);
-          }}
-          title="Click to explore full architecture and case study"
+          onClick={() => soundManager.playClick()}
+          title={`Click to explore ${project.title} full architecture and case study`}
         >
           <ProjectArchitectureDiagram type={project.schematicType} title={project.title} />
           <div className={styles.diagramHoverOverlay}>
             <span className={styles.expandLabel}>CLICK TO EXPLORE FULL CASE STUDY</span>
           </div>
-        </div>
+        </Link>
       </div>
     </article>
   );

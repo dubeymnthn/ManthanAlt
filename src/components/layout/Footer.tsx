@@ -6,11 +6,17 @@ import styles from "./Footer.module.scss";
 import { personalData } from "@/data/personal";
 import { navItems } from "@/data/navigation";
 import { soundManager } from "@/lib/sound";
+import { getGlobalLenis } from "@/lib/scrollLock";
 
 export function Footer() {
   const scrollToTop = () => {
     soundManager.playClick();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const lenis = getGlobalLenis();
+    if (lenis) {
+      lenis.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (

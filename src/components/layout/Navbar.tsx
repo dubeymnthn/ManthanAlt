@@ -1,20 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Volume2, VolumeX, ArrowUpRight } from "lucide-react";
 import styles from "./Navbar.module.scss";
 import { personalData } from "@/data/personal";
 import { navItems } from "@/data/navigation";
 import { formatTimeIST } from "@/lib/utils";
 import { soundManager } from "@/lib/sound";
+import { getGlobalLenis } from "@/lib/scrollLock";
 
 export function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState<string>("");
   const [isMuted, setIsMuted] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
     setMounted(true);
@@ -35,6 +39,42 @@ export function Navbar() {
     };
   }, []);
 
+  // Set up IntersectionObserver to track active section when on homepage
+  useEffect(() => {
+    if (pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
+    const sectionIds = ["work", "expertise", "experience", "about", "experiments", "contact"];
+    const sectionElements = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sectionElements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: "-80px 0px -55% 0px",
+        threshold: 0.1,
+      }
+    );
+
+    sectionElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      sectionElements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, [pathname]);
+
   const toggleSound = () => {
     const next = !isMuted;
     setIsMuted(next);
@@ -44,12 +84,35 @@ export function Navbar() {
     }
   };
 
-  const handleNavClick = () => {
-    soundManager.playClick();
-    if (mobileMenuOpen) {
-      setMobileMenuOpen(false);
-    }
-  };
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      soundManager.playClick();
+      if (mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+
+      // If we are already on homepage and target is an anchor on homepage
+      if (pathname === "/" && href.startsWith("/#")) {
+        e.preventDefault();
+        const hash = href.replace("/", ""); // e.g. "#work"
+        const targetId = hash.replace("#", "");
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          window.history.pushState(null, "", hash);
+          setActiveSection(targetId);
+          const lenis = getGlobalLenis();
+          if (lenis) {
+            lenis.scrollTo(targetElement, { offset: -80 });
+          } else {
+            const top = targetElement.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+        }
+      }
+    },
+    [mobileMenuOpen, pathname]
+  );
 
   return (
     <header
@@ -82,19 +145,24 @@ export function Navbar() {
         {/* Desktop Navigation */}
         <nav className={styles.desktopNav} aria-label="Main Navigation">
           <ul className={styles.navList}>
-            {navItems.map((item) => (
-              <li key={item.href} className={styles.navItem}>
-                <a
-                  href={item.href}
-                  className={styles.navLink}
-                  onMouseEnter={() => soundManager.playHover()}
-                  onClick={handleNavClick}
-                >
-                  <span className={styles.navIndex}>{item.index}</span>
-                  <span className={styles.navLabel}>{item.label}</span>
-                </a>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const itemSectionId = item.href.replace("/#", "");
+              const isActive = pathname === "/" && activeSection === itemSectionId;
+
+              return (
+                <li key={item.href} className={styles.navItem}>
+                  <Link
+                    href={item.href}
+                    className={`${styles.navLink} ${isActive ? styles.activeNav : ""}`}
+                    onMouseEnter={() => soundManager.playHover()}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                  >
+                    <span className={styles.navIndex}>{item.index}</span>
+                    <span className={styles.navLabel}>{item.label}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -120,15 +188,15 @@ export function Navbar() {
           </button>
 
           {/* Quick CTA */}
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className={styles.navCta}
             onMouseEnter={() => soundManager.playHover()}
-            onClick={() => soundManager.playClick()}
+            onClick={(e) => handleNavClick(e, "/#contact")}
           >
             <span>TALK</span>
             <ArrowUpRight size={13} />
-          </a>
+          </Link>
 
           {/* Mobile Hamburger Toggle */}
           <button
@@ -158,18 +226,23 @@ export function Navbar() {
           </div>
 
           <nav className={styles.mobileNavLinks} aria-label="Mobile Navigation">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={styles.mobileNavLink}
-                onClick={handleNavClick}
-              >
-                <span className={styles.mobileNavIndex}>{item.index}</span>
-                <span className={styles.mobileNavLabel}>{item.label}</span>
-                <ArrowUpRight size={16} className={styles.mobileNavArrow} />
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const itemSectionId = item.href.replace("/#", "");
+              const isActive = pathname === "/" && activeSection === itemSectionId;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`${styles.mobileNavLink} ${isActive ? styles.activeMobileNav : ""}`}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                >
+                  <span className={styles.mobileNavIndex}>{item.index}</span>
+                  <span className={styles.mobileNavLabel}>{item.label}</span>
+                  <ArrowUpRight size={16} className={styles.mobileNavArrow} />
+                </Link>
+              );
+            })}
           </nav>
 
           <div className={styles.mobileDrawerFooter}>

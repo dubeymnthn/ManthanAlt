@@ -302,8 +302,8 @@ export const projectsData: Project[] = [
   // 03. DRAVYAM — GODOWNOS (Featured)
   // =========================================================================
   {
-    id: "dravyam-godownos",
-    slug: "dravyam-godownos",
+    id: "dravyam",
+    slug: "dravyam",
     index: "03",
     displayOrder: 3,
     title: "Dravyam — GodownOS",
@@ -1095,3 +1095,30 @@ export const projectsData: Project[] = [
     liveDemoUrl: null,
   },
 ];
+
+export function getAllProjectSlugs(): string[] {
+  return projectsData.map((p) => p.slug);
+}
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  if (!slug) return undefined;
+  // Support canonical slug as well as legacy alias
+  if (slug === "dravyam-godownos") {
+    return projectsData.find((p) => p.slug === "dravyam");
+  }
+  return projectsData.find((p) => p.slug.toLowerCase() === slug.toLowerCase());
+}
+
+export function getAdjacentProjects(currentSlug: string): { prev: Project; next: Project } {
+  const currentIndex = projectsData.findIndex(
+    (p) => p.slug === currentSlug || (currentSlug === "dravyam-godownos" && p.slug === "dravyam")
+  );
+  const safeIndex = currentIndex === -1 ? 0 : currentIndex;
+  const prevIndex = (safeIndex - 1 + projectsData.length) % projectsData.length;
+  const nextIndex = (safeIndex + 1) % projectsData.length;
+
+  return {
+    prev: projectsData[prevIndex],
+    next: projectsData[nextIndex],
+  };
+}

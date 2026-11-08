@@ -134,12 +134,33 @@
   letter-spacing: 0.08em;
   color: var(--text-secondary);
   transition: color $transition-fast;
+  position: relative;
 
   &:hover {
     color: var(--text-primary);
 
     .navIndex {
-      color: var(--accent);
+      color: var(--accent-muted);
+    }
+  }
+
+  &.activeNav {
+    color: var(--text-primary);
+    font-weight: 700;
+
+    .navIndex {
+      color: var(--accent-muted);
+      font-weight: 700;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--accent-muted);
     }
   }
 }
@@ -299,6 +320,20 @@
 
   &:hover {
     color: var(--accent-muted);
+  }
+
+  &.activeMobileNav {
+    color: var(--accent-muted);
+    border-bottom-color: var(--accent-muted);
+
+    .mobileNavIndex {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .mobileNavArrow {
+      color: var(--accent-muted);
+    }
   }
 }
 
